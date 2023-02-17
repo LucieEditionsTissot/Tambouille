@@ -3,7 +3,7 @@ alias:
   ssh_keys: &ssh_keys
     add_ssh_keys:
       fingerprints:
-        - "9b:8a:38:8c:23:75:a4:7e:e5:89:1b:bd:e2:b6:c7:e8"
+        - ""
 
 jobs:
   deploy_prod:
