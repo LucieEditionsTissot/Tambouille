@@ -1,0 +1,46 @@
+version: 2.1
+alias:
+  ssh_keys: &ssh_keys
+    add_ssh_keys:
+      fingerprints:
+        - ""
+
+jobs:
+  deploy_prod:
+    docker:
+      -   image: cimg/php:8.2
+    steps:
+      - *ssh_keys
+      - checkout
+      -   run: sudo apt -y update && sudo  apt -y install software-properties-common
+      -   run:
+            name: Install Ansible
+            command: sudo apt install -y ansible
+      -   run:
+            name: Deploy the project to the production environment
+            command: ansible-playbook -i hosts/production.yaml playbooks/deploy.yaml --verbose
+            working_directory: ./.ansible
+  deploy_preprod:
+    docker:
+      -   image: cimg/php:8.0
+    steps:
+      - *ssh_keys
+      - checkout
+      -   run: sudo apt -y update && sudo  apt -y install software-properties-common
+      -   run:
+            name: Install Ansible
+            command: sudo apt install -y ansible
+      -   run:
+            name: Deploy the project to the production environment
+            command: ansible-playbook -i hosts/preprod.yaml playbooks/deploy.yaml --verbose
+            working_directory: ./.ansible
+
+workflows:
+  deploy:
+    jobs:
+      - deploy_prod:
+          filters:
+            branches:
+              only:
+                  - master
+
