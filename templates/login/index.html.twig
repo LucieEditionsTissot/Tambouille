@@ -7,17 +7,24 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+    <div class="w-100 vw-100 h-100 vh-100 d-flex">
+        <div class="flex-grow-1">
+            bg
+        </div>
+        <div>
+            <form action="{{ path('app_login') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password">
 
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"> #}
+                {# If you want to control the URL the user is redirected to on success#}
+                {#        <input type="hidden" name="_target_path" value="{{ path }}"> #}
 
-        <button type="submit">login</button>
-    </form>
+                <button type="submit">login</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
