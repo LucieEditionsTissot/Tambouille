@@ -1,4 +1,5 @@
-
+/.idea
+students_gobelins.key
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
