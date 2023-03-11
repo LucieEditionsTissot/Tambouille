@@ -20,11 +20,14 @@ security:
                 # "app_login" is the name of the route created previously
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_feed
+                default_target_path: group_list
                 always_use_default_target_path: true
         secured_area:
             form_login:
                 enable_csrf: true
+            logout:
+                path: app_logout
+                target:
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

@@ -7,13 +7,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+#[Route('', name: 'app_')]
 class LoginController extends AbstractController
 {
-    #[Route('', name: 'app_login')]
+    #[Route('', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+
 
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
@@ -21,4 +23,12 @@ class LoginController extends AbstractController
         ]);
 
     }
+
+
+    //  #[Route('/logout', name: 'logout')]
+    // public function logout()
+    // {
+    //   throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    // }
+
 }
