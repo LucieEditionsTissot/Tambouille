@@ -12,7 +12,7 @@
             bg
         </div>
         <div>
-            <form action="{{ path('app_login') }}" method="post">
+            <form action="{{ path('user_list') }}" method="post">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <label for="username">Email:</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}">
