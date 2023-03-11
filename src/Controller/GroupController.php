@@ -9,6 +9,7 @@ use App\Repository\GroupRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +28,6 @@ class GroupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $task = $form->getData();
-
             return $this->redirectToRoute('group_list');
         }
 
@@ -36,10 +36,11 @@ class GroupController extends AbstractController
         ]);
     }
     #[Route('/list', name: 'list')]
-    public function list(GroupRepository $groupRepository, EntityManagerInterface $entityManager):Response {
+    public function list(GroupRepository $groupRepository, EntityManagerInterface $entityManager, Security $security):Response {
 
         $groupRepository = $entityManager->getRepository(Group::class);
 
+        $security->getUser();
         $groupList = $groupRepository->findAll();
 
 
