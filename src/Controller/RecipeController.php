@@ -4,7 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Recipe;
+use App\Entity\User;
 use App\Form\RecipeFormType;
+use App\Repository\RecipeRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,23 +26,31 @@ class RecipeController extends AbstractController
         ]);
     }
     #[Route('/add', name: 'add')]
-    public function addRecipe(Request $request) :Response {
+    public function addRecipe(Request $request, EntityManagerInterface
+    $entityManager, UserRepository $userRepository) :Response {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeFormType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
-            $recipe->setAuthor($this->getUser());
-            $entityManager = $this->getDoctrine()->getManager();
+            $username = "";
+            $userRepository = $this->getDoctrine()->getRepository(User::class);
+            $user = $userRepository->findOneByUsername($username);
+            if (!$user) {
+                throw $this->createNotFoundException('User not found');
+            }
+            $recipe->setAuthor($user);
+            $entityManager->getRepository(Recipe::class);
 
             $recipe = $form->getData();
-            $images = $form->get('images')->getData();
+            $images = $form->get('image')->getData();
             foreach ($images as $imageFile) {
                 $image = new Image();
                 $image->setFilename($imageFile);
                 $image->setRecipe($recipe);
                 $recipe->addImage($image);
+                $entityManager->persist($image);
             }
 
             $entityManager->persist($recipe);
