@@ -35,8 +35,8 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?RecipeType $recipeType = null;
+    #[ORM\Column(Types::ARRAY)]
+    private array $recipeType;
 
     #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'recipes')]
     private Collection $equipements;
@@ -131,12 +131,13 @@ class Recipe
         return $this;
     }
 
-    public function getRecipeType(): ?RecipeType
+
+    public function getRecipeType(): ?array
     {
         return $this->recipeType;
     }
 
-    public function setRecipeType(?RecipeType $recipeType): self
+    public function setRecipeType(?array $recipeType): self
     {
         $this->recipeType = $recipeType;
 
