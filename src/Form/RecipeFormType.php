@@ -28,7 +28,7 @@ public User $user;
             ->add('images', FileType::class)
             ->add('nbPersons', IntegerType::class)
             ->add('author', ChoiceType::class, [
-                'choices' => $this->getUser()->getAuthors(),
+                'choices' => $this->user->getUsername(),
                 'choice_label' => function($author) {
                     return $author->getFullName();
                 },
