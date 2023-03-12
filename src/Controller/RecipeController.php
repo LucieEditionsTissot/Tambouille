@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Recipe;
 use App\Form\RecipeFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,9 +28,22 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
+            $recipe->setAuthor($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
+
+            $recipe = $form->getData();
+            $images = $form->get('images')->getData();
+            foreach ($images as $imageFile) {
+                $image = new Image();
+                $image->setFilename($imageFile);
+                $image->setRecipe($recipe);
+                $recipe->addImage($image);
+            }
+
             $entityManager->persist($recipe);
             $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_list');
         }
 
         return $this->render('recipe/recipeForm.html.twig', [

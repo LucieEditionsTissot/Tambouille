@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -24,9 +25,6 @@ class Recipe
 
     #[ORM\Column]
     private ?int $cookingTime = null;
-
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $images = [];
 
     #[ORM\Column]
     private ?int $nbPersons = null;
@@ -47,11 +45,15 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: PreparationStep::class)]
     private Collection $steps;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Image::class)]
+    private Collection $image;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->steps = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,17 +97,6 @@ class Recipe
         return $this;
     }
 
-    public function getImages(): array
-    {
-        return $this->images;
-    }
-
-    public function setImages(array $images): self
-    {
-        $this->images = $images;
-
-        return $this;
-    }
 
     public function getNbPersons(): ?int
     {
@@ -226,5 +217,55 @@ class Recipe
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImage(): Collection
+    {
+        return $this->image;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->image->contains($image)) {
+            $this->image->add($image);
+            $image->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->image->removeElement($image)) {
+            if ($image->getRecipe() === $this) {
+                $image->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+    public function setImageFile(UploadedFile $file): self
+    {
+        $image = new Image();
+        $filename = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move($this->getUploadRootDir(), $filename);
+        $image->setFilename($filename);
+        $image->setPath($this->getUploadDir() . '/' . $filename);
+        $image->setRecipe($this);
+        $this->image->add($image);
+
+        return $this;
+    }
+    protected function getUploadRootDir()
+    {
+        return __DIR__ . '/../../public/uploads/recipes';
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/recipes';
     }
 }

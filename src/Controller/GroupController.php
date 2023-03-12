@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GroupController extends AbstractController
 {
     #[Route('/add', name: 'add')]
-    public function addGroup(Request $request): Response
+    public function addGroup(Request $request, EntityManagerInterface $entityManager): Response
     {
         $group = new Group();
         $form = $this->createForm(GroupFormType::class, $group);
@@ -27,11 +27,21 @@ class GroupController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $users = $form->get('users')->getData();
+
+            foreach ($users as $user) {
+                $group->addUser($user);
+            }
+
+            $entityManager->persist($group);
+            $entityManager->flush();
+
             $task = $form->getData();
             return $this->redirectToRoute('group_list');
         }
 
         return $this->render('group/formGroup.html.twig', [
+            'users' => $form->get('users')->getData(),
             'groupForm' => $form->createView(),
         ]);
     }
@@ -42,10 +52,18 @@ class GroupController extends AbstractController
 
         $security->getUser();
         $groupList = $groupRepository->findAll();
+        $groupUsers = array();
 
+        foreach($groupList as $group) {
+            $users = $group->getUsers();
+            $groupUsers[] = array(
+                'group' => $group,
+                'users' => $users
+            );
+        }
 
         return $this->render('group/listGroup.html.twig', [
-            dump($groupList)
+            'groupUsers' => $groupUsers
         ]);
     }
 }

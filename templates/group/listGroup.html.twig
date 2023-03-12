@@ -3,6 +3,13 @@
 {% block title %}Group{% endblock %}
 
 {% block body %}
-    <h1>Create Group</h1>
-
+    <h1>List Group</h1>
+    {% for groupUser in groupUsers %}
+        <h3>{{ groupUser.group.name }}</h3>
+        <ul>
+            {% for user in groupUser.users %}
+                <li>{{ user.username }} {{ user.email }} ({{ user.groups }})</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 {% endblock %}

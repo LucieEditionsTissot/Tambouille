@@ -10,6 +10,8 @@ use App\Transformer\EquipementTransformer;
 use App\Transformer\RecipeTypeTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,11 +43,15 @@ class RecipeFormType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('cookingTime', IntegerType::class)
-            ->add('images', FileType::class, [
-                'data_class' => null,
+            ->add('image', FileType::class, [
+                'mapped' => false,
+                'label' => 'Images (JPG, PNG or GIF files)',
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('nbPersons', IntegerType::class)
-            ->add('author', ChoiceType::class, [
+            ->add('author', EntityType::class, [
+                'class' => User::class,
                 'choice_label' => 'username',
                 'placeholder' => 'Choose an author',
                 'required' => true,
