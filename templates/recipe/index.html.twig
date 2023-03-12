@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe{% endblock %}
+
+{% block body %}
+    <h1>Create Recipe</h1>
+
+    {{ form_start(recipeForm) }}
+    {{ form_row(recipeForm.name) }}
+    {{ form_row(groupForm.code) }}
+
+    <button type="submit" class="btn">Create group</button>
+    {{ form_end(groupForm) }}
+{% endblock %}
