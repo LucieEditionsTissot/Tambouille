@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Equipement;
 use App\Entity\Group;
 use App\Entity\RecipeType;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -15,12 +17,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RecipeFormType
+class RecipeFormType extends AbstractType
 {
-
-    private EntityManagerInterface $entityManager;
-
-    public function buildForm(Request $request, FormBuilderInterface $builder, array $options): void
+public User $user;
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class)
@@ -37,9 +37,8 @@ class RecipeFormType
                 },
             ])
             ->add('user_id', HiddenType::class, [
-                'users' => $this->getUser()->getId(),
+                'users' => $this->user->getUserIdentifier(),
             ])
-            ->add('recipeType', IntegerType::class)
             ->add('equipementsType', ChoiceType::class, [
                 'choices' => $this->getEquipementsChoices(),
                 'multiple' => true,
@@ -50,7 +49,8 @@ class RecipeFormType
     }
     private function getEquipementsChoices(): array
     {
-        $equipements = $this->entityManager->getRepository(Equipement::class)->findAll();
+        $entityManager = $this->getDoctrine()->getManager();
+        $equipements = $entityManager->getRepository(Equipement::class)->findAll();
         $choices = [];
         foreach ($equipements as $equipement) {
             $choices[$equipement->getName()] = $equipement->getId();
