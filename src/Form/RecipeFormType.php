@@ -46,7 +46,7 @@ class RecipeFormType
                 'expanded' => true,
             ])
             ->add('recipeType', RecipeType::class);
-        
+
     }
     private function getEquipementsChoices(): array
     {

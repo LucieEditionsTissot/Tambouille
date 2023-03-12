@@ -22,7 +22,7 @@ class RecipeController extends AbstractController
 
     public function addRecipe(Request $request) :Response {
         $recipe = new Recipe();
-        $form = $this->createForm(Group::class, $recipe);
+        $form = $this->createForm(Recipe::class, $recipe);
         $form->handleRequest($request);
 
         return $this->render('recipe/index.html.twig', [
