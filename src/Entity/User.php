@@ -124,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         //If you store any temporary, sensitive data on the user, clear it here
-         $this->plainPassword = null;
+         //$this->plainPassword = null;
     }
 
     public function getUsername(): ?string
@@ -220,6 +220,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function hasAtLeastOneGroup(): bool
     {
         return $this->groups->count() >= 1;
+    }
+    public function __toString() {
+        return $this->username;
     }
     public function hasAtLeastOnePost(): bool
     {

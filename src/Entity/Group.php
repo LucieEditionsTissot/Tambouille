@@ -23,7 +23,7 @@ class Group
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'groups')]
     private Collection $users;
-    
+
     #[ORM\Column(length: 6)]
     private ?string $code = null;
 

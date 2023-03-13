@@ -14,7 +14,9 @@ class GroupFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('code', TextType::class);
+            ->add('code', TextType::class, array(
+                'disabled' => true,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
