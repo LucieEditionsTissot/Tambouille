@@ -35,8 +35,7 @@ class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
             $username = "";
-            $userRepository = $this->getDoctrine()->getRepository(User::class);
-            $user = $userRepository->findOneByUsername($username);
+            $user = $userRepository->findAll();
             if (!$user) {
                 throw $this->createNotFoundException('User not found');
             }
