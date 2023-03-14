@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Ajouter une recette</h1>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.cookingTime) }}
+        {{ form_widget(form.cookingTime, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.nbPersons) }}
+        {{ form_widget(form.nbPersons, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.author) }}
+        {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+        {{ form_label(form.equipements) }}
+        {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    {{ form_end(form) }}
+{% endblock %}

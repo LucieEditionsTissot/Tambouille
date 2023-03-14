@@ -11,8 +11,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('', name: 'app_login')]
+    #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils, #[CurrentUser] ?User $user): Response
+
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -20,7 +21,6 @@ class LoginController extends AbstractController
         if($user){
             return $this->redirectToRoute('app_feed');
         }
-
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -31,5 +31,4 @@ class LoginController extends AbstractController
     public function logout()
     {
     }
-
 }
