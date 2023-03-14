@@ -15,17 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('', name: 'recipe_')]
+#[Route('/recipe', name: 'recipe_')]
 class RecipeController extends AbstractController
 {
-    #[Route('', name: 'list')]
+    #[Route('/list', name: 'list')]
     public function index(): Response
     {
         return $this->render('recipe/recipeForm.html.twig', [
             'recipeForm' => 'RecipeController',
         ]);
     }
-    #[Route('/recipe/add', name: 'add')]
+    #[Route('/add', name: 'add')]
     public function addRecipe(Request $request, EntityManagerInterface
     $entityManager, UserRepository $userRepository) :Response {
         $recipe = new Recipe();
@@ -51,7 +51,7 @@ class RecipeController extends AbstractController
 
             return $this->redirectToRoute('recipe_list');
         }
-
+dump($recipe);
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
         ]);

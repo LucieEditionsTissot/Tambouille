@@ -59,26 +59,6 @@ class RecipeFormType extends AbstractType
             ->add('equipements')
             ->add('submit', SubmitType::class);
     }
-    private function getEquipementsChoices(): array
-    {
-        return [
-            'Mixeur' => 'Mixeur',
-            'Batteur' => 'Batteur',
-            'Four' => 'Four',
-            'Drink' => 'Drink',
-            'Salad' => 'Salad',
-        ];
-    }
-    private function getRecipesTypeChoices(): array
-    {
-        return [
-            'Dessert' => 'Dessert',
-            'Main Course' => 'Main Course',
-            'Appetizer' => 'Appetizer',
-            'Drink' => 'Drink',
-            'Salad' => 'Salad',
-        ];
-    }
 
     public function configureOptions(OptionsResolver $resolver)
     {

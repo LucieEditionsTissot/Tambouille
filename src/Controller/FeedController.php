@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\Post;
-use App\Entity\Recipe;
 use App\Entity\User;
-use App\Form\GroupFormType;
 use App\Form\PostFromType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +50,7 @@ class FeedController extends AbstractController
         );
     }
 
-    // recupere les posts de tout les users du current group
+    // recupères les posts de tout les users du current group
     private function findPosts(EntityManagerInterface $entityManager, Group $group): array
     {
         return $entityManager->getRepository(Post::class)->findBy(
