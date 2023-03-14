@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -42,6 +43,9 @@ class RecipeFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+            ])
             ->add('cookingTime', IntegerType::class)
             ->add('image', FileType::class, [
                 'mapped' => false,
@@ -49,12 +53,20 @@ class RecipeFormType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
+            ->add('recipeType', ChoiceType::class, [
+                'label' => 'Recipe Type',
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => $this->getRecipesTypeChoices(),
+                'choice_label' => 'name',
+            ])
             ->add('nbPersons', IntegerType::class)
             ->add('author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
                 'placeholder' => 'Choose an author',
                 'required' => true,
+                'data' => $this->user,
             ])
             ->add('equipements', ChoiceType::class, [
                 'label' => 'Equipements',
@@ -63,18 +75,17 @@ class RecipeFormType extends AbstractType
                 'choices' => $this->getEquipementsChoices(),
                 'choice_label' => 'name',
             ])
-            ->get('equipements')->addModelTransformer(new EquipementTransformer($this->entityManager))
-
             ->add('submit', SubmitType::class);
     }
     private function getEquipementsChoices(): array
     {
-        $equipements = $this->entityManager->getRepository(Equipement::class)->findAll();
-        $choices = [];
-        foreach ($equipements as $equipement) {
-            $choices[$equipement->getName()] = $equipement->getId();
-        }
-        return $choices;
+        return [
+            'Mixeur' => 'Mixeur',
+            'Batteur' => 'Batteur',
+            'Four' => 'Four',
+            'Drink' => 'Drink',
+            'Salad' => 'Salad',
+        ];
     }
     private function getRecipesTypeChoices(): array
     {

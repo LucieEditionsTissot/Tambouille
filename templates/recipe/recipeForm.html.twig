@@ -32,6 +32,10 @@
         {{ form_label(form.equipements) }}
         {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}}) }}
     </div>
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
     <button type="submit" class="btn btn-primary">Ajouter</button>
     {{ form_end(form) }}
 {% endblock %}

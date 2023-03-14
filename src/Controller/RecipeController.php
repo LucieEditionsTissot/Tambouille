@@ -34,24 +34,27 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
-            $username = "";
-            $user = $userRepository->findAll();
+            $user = $userRepository->find($form->get('author')->getData());
             if (!$user) {
                 throw $this->createNotFoundException('User not found');
             }
+
             $recipe->setAuthor($user);
             $entityManager->getRepository(Recipe::class);
 
             $recipe = $form->getData();
             $images = $form->get('image')->getData();
+            $description = $form->get('description')->getData();
             foreach ($images as $imageFile) {
                 $image = new Image();
                 $image->setFilename($imageFile);
                 $image->setRecipe($recipe);
                 $recipe->addImage($image);
                 $entityManager->persist($image);
-            }
 
+            }
+            $description = $form->get('description')->getData();
+            $recipe->setDescription($description);
             $entityManager->persist($recipe);
             $entityManager->flush();
 
