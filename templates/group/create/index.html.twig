@@ -1,0 +1,15 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block contentHeader %}
+    Créer un groupe
+{% endblock %}
+
+
+{% block contentBody %}
+    {{ form_start(groupForm) }}
+    {{ form_row(groupForm.name) }}
+    {{ form_row(groupForm.code) }}
+
+    <button type="submit" class="btn">Create group</button>
+    {{ form_end(groupForm) }}
+{% endblock %}

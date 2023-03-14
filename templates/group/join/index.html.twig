@@ -1,0 +1,15 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block contentHeader %}
+    Rejoindre un groupe
+{% endblock %}
+
+
+{% block contentBody %}
+
+    <form action="{{ path('join_group') }}" method="post">
+        <label for="code">Code famille:</label>
+        <input type="text" id="code" name="code">
+        <button type="submit">Join group</button>
+    </form>
+{% endblock %}
