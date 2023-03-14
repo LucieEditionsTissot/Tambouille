@@ -1,0 +1,19 @@
+{% extends 'components/layout.html.twig' %}
+
+
+
+    {% block contentHeader %}
+       Publier un post
+    {% endblock %}
+
+    {% block contentBody %}
+
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.recipe) }}
+        {{ form_row(form.image) }}
+
+        <button type="submit" class="btn">Publier</button>
+        {{ form_end(form) }}
+    {% endblock %}
+

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use const App\Entity\GROUP_ID;
 
 class CookingBookController extends AbstractController
 {
@@ -15,7 +16,7 @@ class CookingBookController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $session = $request->getSession();
-        $group = $session->get('group');
+        $group = $session->get(GROUP_ID);
         $recipes = $this->getRecipesbyGroupId($entityManager, $group->getId());
 
         return $this->render('cooking_book/index.html.twig', [

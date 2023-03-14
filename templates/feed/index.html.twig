@@ -7,7 +7,9 @@
 
             <div>
                 <span>Fil d'actualité</span>
+                <a href="{{ path('publish_post') }}">
                 <button>Publier</button>
+                </a>
             </div>
 
         {% endif %}
@@ -19,7 +21,15 @@
         {% if hasGroup  %}
             <div>
 
-                my feed {{ group.name }} ...
+                <h1> my feed {{ group.name }} ...</h1>
+
+                <div>
+                    {% for post in posts %}
+                        <span>{{ post.content }}</span>
+                        <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette">
+                        <br>
+                    {% endfor %}
+                </div>
 
             </div>
         {% endif %}
