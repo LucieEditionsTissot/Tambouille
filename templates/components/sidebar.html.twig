@@ -1,0 +1,37 @@
+
+<div>
+    {{ user.username }}
+    <hr>
+
+    {% if groups|length > 0 %}
+        Liste de mes groupes :
+        {% for group in groups %}
+            <a>
+                <li>{{ group.name }}</li>
+            </a>
+        {% endfor %}
+    {% else %}
+        Vous n’appartenez à aucun groupe
+
+    {% endif %}
+
+        <div>
+            <a href="{{ path('create_group') }}">
+            <button>
+                Créer un groupe
+            </button>
+            </a>
+            <a href="{{ path('join_group') }}">
+            <button>
+                Rejoindre un groupe
+            </button>
+            </a>
+        </div>
+
+    <hr>
+    <a href="{{ path('app_logout') }}">
+        <button>
+            Se deconnecter
+        </button>
+    </a>
+</div>

@@ -22,9 +22,13 @@ class Group
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'groups')]
     private Collection $users;
 
+    #[ORM\Column(length: 6)]
+    private ?string $code = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->code = substr(md5(microtime()),rand(0,26),6);
     }
 
     public function getId(): ?int
@@ -67,6 +71,18 @@ class Group
         if ($this->users->removeElement($user)) {
             $user->removeGroup($this);
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

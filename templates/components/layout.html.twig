@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Tambouille
+{% endblock %}
+
+{% block body %}
+    <div>
+        {{ component('sidebar', {
+            user: app.user,
+        }) }}
+    </div>
+    <hr>
+    <hr>
+    <div>
+        <div>
+
+            {% block contentHeader %}
+            {% endblock %}
+        </div>
+
+        <hr>
+
+        <div>
+
+            {% block contentBody %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

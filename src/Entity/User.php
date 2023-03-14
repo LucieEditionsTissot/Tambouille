@@ -160,11 +160,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Group>
+     * @return array
      */
-    public function getGroups(): Collection
+    public function getGroups(): array
     {
-        return $this->groups;
+        return $this->groups->getValues();
     }
 
     public function addGroup(Group $group): self
@@ -211,5 +211,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function hasAtLeastOneGroup(): bool
+    {
+        return $this->groups->count() >= 1;
     }
 }
