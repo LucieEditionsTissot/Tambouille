@@ -1,0 +1,22 @@
+{% extends 'components/layout.html.twig' %}
+
+
+
+    {% block contentHeader %}
+        Livre de recette
+
+    {% endblock %}
+
+    {% block contentBody %}
+
+        <div>
+
+            <div>nb recette : {{ recipes|length }}</div>
+
+        {% for recipe in recipes %}
+            <div>{{ recipe.title }}</div>
+        {% endfor %}
+        </div>
+
+    {% endblock %}
+

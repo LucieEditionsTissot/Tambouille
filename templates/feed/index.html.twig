@@ -5,7 +5,11 @@
     {% block contentHeader %}
         {% if hasGroup %}
 
-        Fil d'actualité
+            <div>
+                <span>Fil d'actualité</span>
+                <button>Publier</button>
+            </div>
+
         {% endif %}
 
     {% endblock %}
@@ -13,7 +17,11 @@
     {% block contentBody %}
 
         {% if hasGroup  %}
-            my feed of {{ group.name }}
+            <div>
+
+                my feed {{ group.name }} ...
+
+            </div>
         {% endif %}
     {% endblock %}
 
