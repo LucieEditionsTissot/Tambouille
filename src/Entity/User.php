@@ -221,6 +221,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->groups->count() >= 1;
     }
+    public function __toString() {
+        return $this->username;
+    }
     public function hasAtLeastOnePost(): bool
     {
         return $this->posts->count() >= 1;

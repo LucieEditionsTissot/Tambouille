@@ -53,28 +53,10 @@ class RecipeFormType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('recipeType', ChoiceType::class, [
-                'label' => 'Recipe Type',
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => $this->getRecipesTypeChoices(),
-                'choice_label' => 'name',
-            ])
+            ->add('recipeType')
             ->add('nbPersons', IntegerType::class)
-            ->add('author', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'username',
-                'placeholder' => 'Choose an author',
-                'required' => true,
-                'data' => $this->user,
-            ])
-            ->add('equipements', ChoiceType::class, [
-                'label' => 'Equipements',
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => $this->getEquipementsChoices(),
-                'choice_label' => 'name',
-            ])
+            ->add('author')
+            ->add('equipements')
             ->add('submit', SubmitType::class);
     }
     private function getEquipementsChoices(): array

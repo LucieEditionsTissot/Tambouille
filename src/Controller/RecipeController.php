@@ -15,46 +15,37 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/recipe', name: 'recipe_')]
+#[Route('', name: 'recipe_')]
 class RecipeController extends AbstractController
 {
-    #[Route('/list', name: 'list')]
+    #[Route('', name: 'list')]
     public function index(): Response
     {
         return $this->render('recipe/recipeForm.html.twig', [
             'recipeForm' => 'RecipeController',
         ]);
     }
-    #[Route('/add', name: 'add')]
+    #[Route('/recipe/add', name: 'add')]
     public function addRecipe(Request $request, EntityManagerInterface
     $entityManager, UserRepository $userRepository) :Response {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeFormType::class, $recipe);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $recipe = $form->getData();
-            $user = $userRepository->find($form->get('author')->getData());
-            if (!$user) {
-                throw $this->createNotFoundException('User not found');
-            }
-
+        $user = $this->getUser();
+        if ($user instanceof User) {
             $recipe->setAuthor($user);
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->getRepository(Recipe::class);
 
-            $recipe = $form->getData();
             $images = $form->get('image')->getData();
-            $description = $form->get('description')->getData();
             foreach ($images as $imageFile) {
                 $image = new Image();
                 $image->setFilename($imageFile);
                 $image->setRecipe($recipe);
                 $recipe->addImage($image);
                 $entityManager->persist($image);
-
             }
-            $description = $form->get('description')->getData();
-            $recipe->setDescription($description);
             $entityManager->persist($recipe);
             $entityManager->flush();
 
