@@ -3,7 +3,8 @@
     <a href="{{ path('app_feed') }}">Home</a>
     <hr>
 
-    {{ user.username }}
+    <a href="{{ path('app_user_profile') }}">{{ user.username }}</a>
+
     <hr>
 
     {% if groups|length > 0 %}
@@ -37,6 +38,22 @@
             </a>
         </div>
 
+    <hr>
+        <a href="{{ path('app_feed') }}">
+            <button>
+                Fil d'actualité
+            </button>
+        </a>
+
+            <a href="{{ path('app_cooking_book') }}">
+        <button>
+            Livre de recette
+        </button>
+            </a>
+
+        <button>
+            Calendrier
+        </button>
     <hr>
     <a href="{{ path('app_logout') }}">
         <button>

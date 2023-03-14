@@ -1,0 +1,26 @@
+
+{% extends 'components/layout.html.twig' %}
+
+
+
+    {% block contentHeader %}
+        Mon profil
+    {% endblock %}
+
+    {% block contentBody %}
+
+        <div>
+            <h2>Mes infos</h2>
+            {{ user.username }}
+            {{ user.email }}
+            {{ user.phone }}
+        </div>
+
+        <div>
+            <h2>Recettes</h2>
+            {% for recipe in user.getRecipes %}
+                - {{ recipe.title}}
+            {% endfor %}
+        </div>
+    {% endblock %}
+

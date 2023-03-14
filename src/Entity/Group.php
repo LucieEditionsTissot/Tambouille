@@ -25,10 +25,14 @@ class Group
     #[ORM\Column(length: 6)]
     private ?string $code = null;
 
+    #[ORM\OneToMany(mappedBy: 'groupId', targetEntity: Recipe::class)]
+    private Collection $recipes;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->code = substr(md5(microtime()),rand(0,26),6);
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +87,36 @@ class Group
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->setGroupId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getGroupId() === $this) {
+                $recipe->setGroupId(null);
+            }
+        }
 
         return $this;
     }

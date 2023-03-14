@@ -47,6 +47,10 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: PreparationStep::class)]
     private Collection $steps;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Group $groupId = null;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
@@ -223,6 +227,18 @@ class Recipe
                 $step->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupId(): ?Group
+    {
+        return $this->groupId;
+    }
+
+    public function setGroupId(?Group $groupId): self
+    {
+        $this->groupId = $groupId;
 
         return $this;
     }
