@@ -33,7 +33,6 @@ class FeedController extends AbstractController
         }
 
         $posts = $this->findPosts($entityManager, $group);
-
         return $this->render('feed/index.html.twig', [
             'hasGroup'=>$user->hasAtLeastOneGroup() and isset($group),
             "group"=>$group,
@@ -54,22 +53,20 @@ class FeedController extends AbstractController
     }
 
     // recupere les posts de tout les users du current group
-    private function findPosts(EntityManagerInterface $entityManager, Group $group){
-        $users = $group->getUsers()->getValues();
-        $posts = array();
-        foreach ($users as $user) {
-            foreach ($user->getPosts()->getValues() as $post) {
-                    $posts[] = $post;
-            }
-        }
-        return $posts;
+    private function findPosts(EntityManagerInterface $entityManager, Group $group): array
+    {
+        return $entityManager->getRepository(Post::class)->findBy(
+            array('groupId'=>$group->getId())
+        );
     }
 
     #[Route('/feed/publish', name: 'publish_post')]
     public function publish(Request $request,EntityManagerInterface $entityManager, #[CurrentUser] ?User $user, SluggerInterface $slugger): Response
     {
-
         $post = new Post();
+        $groupId = $request->getSession()->get(GROUP_ID);
+        $group = $this->getGroupById($entityManager, $groupId);
+        $post->setGroupId($group);
         $form = $this->createForm(PostFromType::class, $post);
 
 

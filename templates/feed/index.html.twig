@@ -23,11 +23,13 @@
 
                 <h1> my feed {{ group.name }} ...</h1>
 
-                <div>
+                <div class="d-flex flex-column gap-4">
                     {% for post in posts %}
-                        <span>{{ post.content }}</span>
-                        <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette">
-                        <br>
+
+                        {{ component('post', {
+                            post: post,
+                        }) }}
+
                     {% endfor %}
                 </div>
 

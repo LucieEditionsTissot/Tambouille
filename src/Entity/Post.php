@@ -28,6 +28,10 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Group $groupId = null;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTimeImmutable());
@@ -95,6 +99,18 @@ class Post
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getGroupId(): ?Group
+    {
+        return $this->groupId;
+    }
+
+    public function setGroupId(?Group $groupId): self
+    {
+        $this->groupId = $groupId;
 
         return $this;
     }

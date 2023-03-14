@@ -12,13 +12,12 @@ use const App\Entity\GROUP_ID;
 
 class CookingBookController extends AbstractController
 {
-    #[Route('/cooking/book', name: 'app_cooking_book')]
+    #[Route('/book', name: 'app_cooking_book')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $session = $request->getSession();
-        $group = $session->get(GROUP_ID);
-        $recipes = $this->getRecipesbyGroupId($entityManager, $group->getId());
-
+        $groupId = $session->get('groupId');
+        $recipes = $this->getRecipesbyGroupId($entityManager, $groupId);
         return $this->render('cooking_book/index.html.twig', [
             'recipes' => $recipes,
         ]);
