@@ -65,10 +65,36 @@ class GroupController extends AbstractController
     }
 
     private function findMatchingGroup(EntityManagerInterface $entityManager, string $code) : Group | null{
-
         return $entityManager->getRepository(Group::class)->findOneBy(
             array('code'=>$code)
         );
-
     }
+    private function findById(EntityManagerInterface $entityManager, string $id) : Group | null{
+        return $entityManager->getRepository(Group::class)->findOneBy(
+            array('id'=>$id)
+        );
+    }
+
+    #[Route('/group/{id}', name: 'profile_group')]
+    public function profileIndex(Request $request, string $id, EntityManagerInterface $entityManager): Response
+    {
+        $group = $this->findById($entityManager, $id);
+        return $this->render('group/profile/index.html.twig', [
+            "group"=>$group
+        ]);
+    }
+
+    #[Route('/group/select/{id}', name: 'select_group')]
+    public function selectGroup(Request $request, EntityManagerInterface $entityManager, string $id): Response
+    {
+        $group = $this->findById($entityManager, $id);
+        $session = $request->getSession();
+        $session->set('group', $group);
+        $this->addFlash(
+            'notice',
+            $group->getName() . " selected !"
+        );
+        return $this->redirectToRoute('app_feed');
+    }
+
 }
