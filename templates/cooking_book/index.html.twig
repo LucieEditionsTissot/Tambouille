@@ -13,9 +13,9 @@
 
             <div>nb recette : {{ recipes|length }}</div>
 
-        {% for recipe in recipes %}
-            <div>{{ recipe.title }}</div>
-        {% endfor %}
+            {% for recipe in recipes %}
+                <div>{{ recipe.title }}</div>
+            {% endfor %}
         </div>
 
     {% endblock %}

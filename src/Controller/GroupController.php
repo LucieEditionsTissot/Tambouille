@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use function PHPUnit\Framework\throwException;
+use const App\Entity\GROUP_ID;
 
 class GroupController extends AbstractController
 {
@@ -89,7 +90,7 @@ class GroupController extends AbstractController
     {
         $group = $this->findById($entityManager, $id);
         $session = $request->getSession();
-        $session->set('group', $group);
+        $session->set(GROUP_ID, $group->getId());
         $this->addFlash(
             'notice',
             $group->getName() . " selected !"
