@@ -143,8 +143,10 @@ class RecipeController extends AbstractController
     #[Route('/{id}/show', name: 'show')]
     public function showRecipe(Recipe $recipes): Response
     {
+        $reviews = $recipes->getReviews();
         return $this->render('recipe/show.html.twig', [
             'recipes' => $recipes,
+            'reviews' => $reviews,
         ]);
     }
 

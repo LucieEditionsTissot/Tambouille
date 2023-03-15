@@ -16,4 +16,14 @@
         <input type="hidden" name="_token" value="{{ csrf_token('delete_recipe' ~ recipes.id) }}">
         <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
+
+    {% if reviews is not empty %}
+        <br>
+        <h2>Avis</h2>
+        <ul>
+            {% for review in reviews %}
+                <li>{{ review.author }} - {{ review.rating }}/10 - {{ review.comment }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
