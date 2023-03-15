@@ -1,0 +1,34 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block contentHeader %}
+    {{ group.name }}
+{% endblock %}
+
+
+{% block contentBody %}
+
+    <div>
+        <span>Name :</span>
+        <span>{{group.name }}</span>
+    </div>
+
+
+    <div>
+        <span>Code :</span>
+        <span>{{group.code }}</span>
+    </div>
+
+    <div>
+        {% if group.users|length >= 1 %}
+        Users :
+        <ul>
+            {% for user in group.users %}
+                <li>{{ user.username }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            Aucun user dans cette famille
+        {% endif %}
+    </div>
+
+{% endblock %}

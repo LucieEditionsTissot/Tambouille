@@ -1,0 +1,63 @@
+
+<div>
+    <a href="{{ path('app_feed') }}">Home</a>
+    <hr>
+
+    <a href="{{ path('app_user_profile') }}">{{ user.username }}</a>
+
+    <hr>
+
+    {% if groups|length > 0 %}
+        Liste de mes groupes :
+        {% for group in groups %}
+                <li>
+                    <a href="{{ path('select_group', { 'id': group.id })  }}">
+                        <span >{{ group.name }}</span>
+                    </a>
+                    <span> --- </span>
+                    <a href="{{ path('profile_group', { 'id': group.id })  }}">
+                        <span>go to profile</span>
+                    </a>
+                </li>
+
+        {% endfor %}
+    {% else %}
+        Vous n’appartenez à aucun groupe
+    {% endif %}
+
+        <div>
+            <a href="{{ path('create_group') }}">
+            <button>
+                Créer un groupe
+            </button>
+            </a>
+            <a href="{{ path('join_group') }}">
+            <button>
+                Rejoindre un groupe
+            </button>
+            </a>
+        </div>
+
+    <hr>
+        <a href="{{ path('app_feed') }}">
+            <button>
+                Fil d'actualité
+            </button>
+        </a>
+
+            <a href="{{ path('app_cooking_book') }}">
+        <button>
+            Livre de recette
+        </button>
+            </a>
+
+        <button>
+            Calendrier
+        </button>
+    <hr>
+    <a href="{{ path('app_logout') }}">
+        <button>
+            Se deconnecter
+        </button>
+    </a>
+</div>
