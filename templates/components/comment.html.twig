@@ -1,0 +1,7 @@
+<div class="border border-secondary d-flex flex-column">
+    <span>{{ comment.author.username }}</span>
+    <span>{{ comment.content }}</span>
+    {% if app.user.id is same as comment.author.id %}
+        <a href="{{ path('delete_comment') }}">Delete comment</a>
+    {% endif %}
+</div>
