@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReviewController extends AbstractController
 {
-    #[Route('/recipe/{recipeId}/reviews/add', name: 'add_review')]
+    #[Route('/recipe/{recipeId}/reviews/add', name: 'review_add')]
     public function addReview(Request $request, EntityManagerInterface $entityManager, int $recipeId): Response
     {
 
@@ -27,6 +27,8 @@ class ReviewController extends AbstractController
             $review->setAuthor($user);
         }
         $review->setRecipe($recipe);
+
+
         $review->setCreatedAt(new \DateTimeImmutable());
 
         $form = $this->createForm(ReviewFormType::class, $review);
@@ -45,5 +47,32 @@ class ReviewController extends AbstractController
         ]);
     }
 
+    #[Route('/recipe/review/{id}/edit', name: 'review_edit')]
+    public function editReview(Request $request, EntityManagerInterface $entityManager, Review $review): Response
+    {
+        $form = $this->createForm(ReviewFormType::class, $review);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_show', ['id' => $review->getRecipe()->getId()]);
+        }
+
+        return $this->render('review/reviewForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/recipe/review/{id}/delete', name: 'review_delete')]
+    public function deleteReview(EntityManagerInterface $entityManager, Review $review): Response
+    {
+        $recipeId = $review->getRecipe()->getId();
+
+        $entityManager->remove($review);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('recipe_show', ['id' => $recipeId]);
+    }
 
 }
