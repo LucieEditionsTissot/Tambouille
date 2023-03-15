@@ -1,0 +1,11 @@
+<div class="border border-primary d-flex  flex-column">
+    <span>{{ post.author.username }}</span>
+    <span>{{ post.content }}</span>
+    <span>{{ post.recipe.title ?? "Aucun recette" }}</span>
+    <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette" style="height: 100px; width: 100px">
+    <hr>
+    <form action="{{ path('add_comment') }}" method="post">
+        <input type="text" id="comment" name="comment"  placeholder="Ajouter un commentaire">
+        <button type="submit">Comment</button>
+    </form>
+</div>
