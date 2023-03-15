@@ -54,12 +54,16 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Post::class)]
     private Collection $posts;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->steps = new ArrayCollection();
         $this->posts = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -271,6 +275,36 @@ class Recipe
             // set the owning side to null (unless already changed)
             if ($post->getRecipe() === $this) {
                 $post->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getRecipe() === $this) {
+                $review->setRecipe(null);
             }
         }
 
