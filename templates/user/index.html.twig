@@ -4,16 +4,20 @@
 
 
     {% block contentHeader %}
-        Mon profil
+        <h1>Profil de {{ user.username }}</h1>
     {% endblock %}
 
     {% block contentBody %}
 
         <div>
             <h2>Mes infos</h2>
-            {{ user.username }}
-            {{ user.email }}
-            {{ user.phone }}
+
+
+            <p>Nom d'utilisateur : {{ user.username }}</p>
+            <p>Adresse email : {{ user.email }}</p>
+            <p>Téléphone : {{ user.phone }}</p>
+
+            <a href="{{ path('app_user_edit') }}" class="btn btn-primary">Modifier le profil</a>
         </div>
 
         <div>

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ recipes.title }}</h1>
+    <p>{{ recipes.description }}</p>
+    <p>{{ recipes.cookingTime }}</p>
+    <p>{{ recipes.nbPersons }}</p>
+    {% if recipes.images %}
+        {% for image in recipes.images %}
+            <img src="{{ asset('uploads/images/' ~ image) }}" alt="{{ recipes.title }}" />
+        {% endfor %}
+    {% endif %}
+    <a href="{{ path('recipe_edit', {'id': recipes.id}) }}" class="btn btn-primary">Modifier la recette</a>
+    <form action="{{ path('recipe_delete', {'id': recipes.id}) }}" method="post" onsubmit="return confirm('Vous voulez vraiment supprimé votre recette ?');">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete_recipe' ~ recipes.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+{% endblock %}

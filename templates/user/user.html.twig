@@ -3,6 +3,10 @@
 {% block title %}Group{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
+    <h1>Mon profil</h1>
+    <ul>
+        <li>Nom : {{ user.username }}</li>
+        <li>Email : {{ user.email }}</li>
+        <li>Date de création du compte : {{ user.createdAt|date('d/m/Y H:i:s') }}</li>
+    </ul>
 {% endblock %}
