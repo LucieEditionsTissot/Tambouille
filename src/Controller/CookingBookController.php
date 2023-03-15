@@ -28,7 +28,4 @@ class CookingBookController extends AbstractController
             array('groupId'=>$id)
         );
     }
-
-
-
 }

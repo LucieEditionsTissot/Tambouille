@@ -1,6 +1,5 @@
 .idea
 students_gobelins.key
-public/uploads/images
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
