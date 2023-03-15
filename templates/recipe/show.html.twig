@@ -16,7 +16,8 @@
         <input type="hidden" name="_token" value="{{ csrf_token('delete_recipe' ~ recipes.id) }}">
         <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
-
+    <br>
+    <a href="{{ path('review_add', {'recipeId': recipes.id}) }}" class="btn btn-primary">Ajouter un avis</a>
     {% if reviews is not empty %}
         <br>
         <h2>Avis</h2>
