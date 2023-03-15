@@ -12,10 +12,18 @@
         <div>
 
             <div>nb recette : {{ recipes|length }}</div>
+            <h1>Liste des recettes</h1>
+            <ul>
+                {% for recipe in recipes %}
+                    <li>
+                        <h2>{{ recipe.title }}</h2>
+                        <p>{{ recipe.description }}</p>
+                        <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="btn btn-primary">Consulter la
+                            recette</a>
+                    </li>
 
-            {% for recipe in recipes %}
-                <div>{{ recipe.title }}</div>
-            {% endfor %}
+                {% endfor %}
+            </ul>
         </div>
 
     {% endblock %}
