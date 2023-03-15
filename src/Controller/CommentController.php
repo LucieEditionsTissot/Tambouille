@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\Link;
 use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,10 +50,10 @@ class CommentController extends AbstractController
     public function delete(EntityManagerInterface $entityManager, Request $request): Response
     {
 
-
-
-//        $entityManager->persist($parent);
-//        $entityManager->flush();
+        $commentId = $request->request->get('commentId');
+        $comment = $this->getPostById($entityManager, $commentId);
+        $entityManager->remove($comment);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_feed');
     }
