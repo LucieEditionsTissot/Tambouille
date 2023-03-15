@@ -15,6 +15,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReviewController extends AbstractController
 {
+    #[Route('/recipe/{recipeId}/reviews/add', name: 'add_review')]
+    public function addReview(Request $request, EntityManagerInterface $entityManager, int $recipeId): Response
+    {
+
+        $recipe = $entityManager->getRepository(Recipe::class)->find($recipeId);
+
+        $user = $this->getUser();
+        $review = new Review();
+        if ($user instanceof User) {
+            $review->setAuthor($user);
+        }
+        $review->setRecipe($recipe);
+        $review->setCreatedAt(new \DateTimeImmutable());
+
+        $form = $this->createForm(ReviewFormType::class, $review);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($review);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_show', ['id' => $recipeId]);
+        }
+
+        return $this->render('review/reviewForm.html.twig', [
+            'form' => $form->createView(),
+            'recipe' => $recipe,
+        ]);
+    }
 
 
 }
