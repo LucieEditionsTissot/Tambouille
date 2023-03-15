@@ -1,3 +1,5 @@
+.idea
+students_gobelins.key
 /.idea
 students_gobelins.key
 ###> symfony/framework-bundle ###
@@ -11,7 +13,7 @@ students_gobelins.key
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
+/phpunit.xmlgit
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
