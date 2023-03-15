@@ -25,7 +25,7 @@ class Recipe
     #[ORM\Column]
     private ?int $cookingTime = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
+    #[ORM\Column(type: Types::JSON)]
     private array $images = [];
 
     #[ORM\Column]

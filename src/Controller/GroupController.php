@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Group;
 use App\Entity\Link;
 use App\Entity\User;
-use App\Form\GroupFormType;
+use App\Form\GroupFromType;
 use App\Form\JoinGroupFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -24,7 +24,7 @@ class GroupController extends AbstractController
     {
 
         $group = new Group();
-        $form = $this->createForm(GroupFormType::class, $group);
+        $form = $this->createForm(GroupFromType::class, $group);
 
 
         $form->handleRequest($request);

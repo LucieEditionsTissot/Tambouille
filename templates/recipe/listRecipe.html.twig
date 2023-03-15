@@ -1,0 +1,19 @@
+{% extends 'components/layout.html.twig' %}
+
+
+
+    {% block contentBody %}
+
+        {% if hasGroup  %}
+            <div>
+
+                <h1> Recipe {{ recipe.name }} ...</h1>
+
+                <div class="d-flex flex-column gap-4">
+
+                </div>
+
+            </div>
+        {% endif %}
+    {% endblock %}
+
