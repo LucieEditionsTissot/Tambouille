@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group{% endblock %}
+
+{% block body %}
+    <h1>Create Group</h1>
+
+    {{ form_start(groupForm) }}
+    {{ form_row(groupForm.name) }}
+    {{ form_row(groupForm.code) }}
+    {% for user in users %}
+        <li>{{ user.name }}</li>
+    {% endfor %}
+
+    <button type="submit" class="btn">Create group</button>
+    {{ form_end(groupForm) }}
+{% endblock %}

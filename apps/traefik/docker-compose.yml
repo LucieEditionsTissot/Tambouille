@@ -1,0 +1,21 @@
+# /apps/traefik/docker-compose.yml
+version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik:v2.4
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8081:8081"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      - $PWD/acme.json:/acme.json
+    restart: always
+    networks:
+      - web
+networks:
+  web:
+    external: true
