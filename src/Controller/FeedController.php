@@ -31,6 +31,7 @@ class FeedController extends AbstractController
         }
 
         $posts = $this->findPosts($entityManager, $group);
+//        dd($posts[0]->getComments()->getValues());
         return $this->render('feed/index.html.twig', [
             'hasGroup'=>$user->hasAtLeastOneGroup() and isset($group),
             "group"=>$group,
@@ -54,7 +55,7 @@ class FeedController extends AbstractController
     private function findPosts(EntityManagerInterface $entityManager, Group $group): array
     {
         return $entityManager->getRepository(Post::class)->findBy(
-            array('groupId'=>$group->getId())
+            array('groupId'=>$group->getId(), 'parent'=>null)
         );
     }
 

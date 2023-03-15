@@ -5,7 +5,17 @@
     <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette" style="height: 100px; width: 100px">
     <hr>
     <form action="{{ path('add_comment') }}" method="post">
-        <input type="text" id="comment" name="comment"  placeholder="Ajouter un commentaire">
+        <input type="hidden" id="postId" name="postId" value="{{ post.id }}">
+        <input type="text" id="content" name="content"  placeholder="Ajouter un commentaire">
         <button type="submit">Comment</button>
     </form>
+    <hr>
+    <span>Comment section :</span>
+    {% for comment in post.comments %}
+
+        {{ component('comment', {
+            comment: comment,
+        }) }}
+
+    {% endfor %}
 </div>
