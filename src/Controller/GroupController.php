@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Group;
-use App\Entity\Link;
 use App\Entity\User;
-use App\Form\GroupFromType;
-use App\Form\JoinGroupFormType;
+use App\Form\GroupFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +22,7 @@ class GroupController extends AbstractController
     {
 
         $group = new Group();
-        $form = $this->createForm(GroupFromType::class, $group);
+        $form = $this->createForm(GroupFormType::class, $group);
 
 
         $form->handleRequest($request);
@@ -88,6 +86,8 @@ class GroupController extends AbstractController
     #[Route('/group/select/{id}', name: 'select_group')]
     public function selectGroup(Request $request, EntityManagerInterface $entityManager, string $id): Response
     {
+        $origin = $request->headers->get('referer');
+
         $group = $this->findById($entityManager, $id);
         $session = $request->getSession();
         $session->set(GROUP_ID, $group->getId());
@@ -95,7 +95,8 @@ class GroupController extends AbstractController
             'notice',
             $group->getName() . " selected !"
         );
-        return $this->redirectToRoute('app_feed');
+
+        return $this->redirect($origin);
     }
 
 }

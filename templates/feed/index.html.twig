@@ -26,9 +26,15 @@
                 <div class="d-flex flex-column gap-4">
                     {% for post in posts %}
 
-                        {{ component('post', {
-                            post: post,
-                        }) }}
+                        {% if post.type ==  1  %} {#    POST_TYPE_NOTIFICATION#}
+                            {{ component('post_notification', {
+                                post: post,
+                            }) }}
+                        {% else %}
+                            {{ component('post', {
+                                post: post,
+                            }) }}
+                        {% endif %}
 
                     {% endfor %}
                 </div>

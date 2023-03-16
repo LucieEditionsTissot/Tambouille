@@ -6,6 +6,11 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
+
+const POST_TYPE_STANDART = 0;
+const POST_TYPE_NOTIFICATION = 1;
+const POST_TYPE_INVITATION = 2;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -39,6 +44,9 @@ class Post
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $comments;
+
+    #[ORM\Column]
+    private ?int $type = POST_TYPE_STANDART;
 
     public function __construct()
     {
@@ -162,6 +170,18 @@ class Post
                 $comment->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

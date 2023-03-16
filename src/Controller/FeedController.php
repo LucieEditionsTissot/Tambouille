@@ -54,9 +54,12 @@ class FeedController extends AbstractController
     // recupères les posts de tout les users du current group
     private function findPosts(EntityManagerInterface $entityManager, Group $group): array
     {
-        return $entityManager->getRepository(Post::class)->findBy(
-            array('groupId'=>$group->getId(), 'parent'=>null)
+        $posts = $entityManager->getRepository(Post::class)->findBy(
+            array('groupId'=>$group->getId(), 'parent'=>null),
+            array('createdAt' => 'DESC')
         );
+
+        return $posts;
     }
 
     #[Route('/feed/publish', name: 'publish_post')]

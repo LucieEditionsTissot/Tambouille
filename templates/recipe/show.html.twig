@@ -1,13 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'components/layout.html.twig' %}
 
-{% block body %}
+{% block contentBody %}
+    <a href="{{ path('app_cooking_book') }}">Retour</a>
     <h1>{{ recipes.title }}</h1>
     <p>{{ recipes.description }}</p>
     <p>{{ recipes.cookingTime }}</p>
     <p>{{ recipes.nbPersons }}</p>
     {% if recipes.images %}
         {% for image in recipes.images %}
-            <img src="{{ asset('uploads/images/' ~ image) }}" alt="{{ recipes.title }}" />
+            <img src="{{ asset('uploads/images/' ~ image) }}" alt="{{ recipes.title }}" width="100px" height="100px"/>
         {% endfor %}
     {% endif %}
     <a href="{{ path('recipe_edit', {'id': recipes.id}) }}" class="btn btn-primary">Modifier la recette</a>
@@ -35,4 +36,20 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    {% if posts is not empty %}
+        <br>
+        <h2>Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    {{ component('post', {
+                        post: post,
+                        noComment : true
+                    }) }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 {% endblock %}

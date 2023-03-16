@@ -1,8 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'components/layout.html.twig' %}
 
+{% block contentHeader %}
+    Ajouter une recette
+{% endblock %}
 
-{% block body %}
-    <h1>Ajouter une recette</h1>
+{% block contentBody %}
+    <a href="{{ path('app_cooking_book') }}">Retour</a>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="form-group">
@@ -35,6 +38,5 @@
         {{ form_label(form.description) }}
         {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
     </div>
-    <button type="submit" class="btn btn-primary">Ajouter</button>
     {{ form_end(form) }}
 {% endblock %}
