@@ -23,14 +23,18 @@ class FeedController extends AbstractController
     public function index(Request $request,EntityManagerInterface $entityManager, #[CurrentUser] ?User $user): Response
     {
         $session = $request->getSession();
-        $groupId = $session->get(GROUP_ID);
-        if(!$groupId){ // pas forcement au bon endroit
-            $group = $this->selectFirstGroup($user, $session);
-        }else{
-            $group = $this->getGroupById($entityManager, $groupId);
-        }
+        $group = null;
+        $posts = null;
+        if ($user->hasAtLeastOneGroup()) {
+            $groupId = $session->get(GROUP_ID);
+            if (!$groupId) { // pas forcement au bon endroit
+                $group = $this->selectFirstGroup($user, $session);
+            } else {
+                $group = $this->getGroupById($entityManager, $groupId);
+            }
 
-        $posts = $this->findPosts($entityManager, $group);
+            $posts = $this->findPosts($entityManager, $group);
+        }
 //        dd($posts[0]->getComments()->getValues());
         return $this->render('feed/index.html.twig', [
             'hasGroup'=>$user->hasAtLeastOneGroup() and isset($group),
@@ -40,9 +44,12 @@ class FeedController extends AbstractController
     }
 
     private function selectFirstGroup(User $user, SessionInterface $session){
-        $first = $user->getGroups()[0];
-        $session->set(GROUP_ID, $first->getId());
-        return $first;
+        if ($user->hasAtLeastOneGroup()) {
+            $first = $user->getGroups()[0];
+            $session->set(GROUP_ID, $first->getId());
+            return $first;
+        }
+        else null;
     }
 
     private function getGroupById(EntityManagerInterface $entityManager, string $id){
