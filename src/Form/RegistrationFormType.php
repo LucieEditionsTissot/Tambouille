@@ -18,9 +18,17 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('username')
-            ->add('phone', TelType::class)
+            ->add('email',null, [
+                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none']
+            ])
+            ->add('username',null, [
+                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'label' => 'Prénom'
+            ])
+            ->add('phone', TelType::class, [
+                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'label' => 'Téléphone'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -28,12 +36,14 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'label' => "Termes d'utilisation"
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password', 'style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
