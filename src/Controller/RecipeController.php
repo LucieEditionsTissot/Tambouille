@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\Image;
-use App\Entity\Post;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\RecipeFormType;
@@ -26,26 +25,6 @@ use const App\Entity\POST_TYPE_NOTIFICATION;
 #[Route('/recipe', name: 'recipe_')]
 class RecipeController extends AbstractController
 {
-//    #[Route('/list', name: 'list')]
-//    public function index(Request $request,EntityManagerInterface $entityManager, ?User $user): Response
-//    {
-//        $session = $request->getSession();
-//        $groupId = $session->get(GROUP_ID);
-//        if(!$groupId){
-//
-//        }else{
-//            $group = $this->getGroupById($entityManager, $groupId);
-//        }
-//
-//        $recipe = $this->find($entityManager, $group);
-//        return $this->render('recipe/listRecipe.html.twig', [
-//            'hasGroup'=>$user->hasAtLeastOneGroup() and isset($group),
-//            "group"=>$group,
-//            "recipes"=>$recipe
-//        ]);
-//    }
-
-
     private function getGroupById(EntityManagerInterface $entityManager, string $id){
         return $entityManager->getRepository(Group::class)->findOneBy(
             array('id'=>$id)
@@ -85,7 +64,7 @@ class RecipeController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $images = [$newFilename]; // Wrap the newFilename in an array
+                $images = [$newFilename];
                 $recipe->setImages($images);
             }
 

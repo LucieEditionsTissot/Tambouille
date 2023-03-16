@@ -59,7 +59,10 @@ class RecipeFormType extends AbstractType
                     ])
                 ],
             ])
-            ->add('recipeType')
+            ->add('recipeType', EntityType::class, [
+                'class' => RecipeType::class,
+                'choice_label' => 'name',
+            ])
             ->add('nbPersons', IntegerType::class)
             ->add('author')
             ->add('equipements')
