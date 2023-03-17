@@ -12,6 +12,7 @@
         <div>
 
             <div>nb recette : {{ recipes|length }}</div>
+            <a href="{{ path('recipe_add') }}">Ajouter une recette</a>
             <h1>Liste des recettes</h1>
             <ul>
                 {% for recipe in recipes %}

@@ -1,0 +1,6 @@
+<div class="border border-primary d-flex  flex-column">
+    <span>{{ post.author.username }} a ajouté une nouvelle recette : {{ post.recipe.title }}</span>
+    <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette" style="height: 100px; width: 100px">
+    <span>{{ post.createdAt|date("m/d/Y") }}</span>
+
+</div>
