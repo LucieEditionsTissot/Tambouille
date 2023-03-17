@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\Image;
+use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Form\IngredientFormType;
 use App\Form\RecipeFormType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
@@ -34,7 +36,6 @@ class RecipeController extends AbstractController
     #[Route('/add', name: 'add')]
     public function addRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-
         $recipe = new Recipe();
         $groupId = $request->getSession()->get(GROUP_ID);
         $group = $this->getGroupById($entityManager, $groupId);
@@ -169,6 +170,26 @@ class RecipeController extends AbstractController
         $this->addFlash('success', 'Votre recette a bien été supprimé');
 
         return $this->redirectToRoute('app_cooking_book');
+    }
+
+    #[Route('/new/ingredient', name: 'add_ingredient')]
+    public function newIngredient(Request $request, EntityManagerInterface $entityManager)
+    {
+        $ingredient = new Ingredient();
+        $form = $this->createForm(IngredientFormType::class, $ingredient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->getRepository(Ingredient::class);
+            $entityManager->persist($ingredient);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_add');
+        }
+
+        return $this->render('in/new_ingredient.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
 

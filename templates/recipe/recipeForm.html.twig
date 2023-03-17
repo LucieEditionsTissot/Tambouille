@@ -38,5 +38,17 @@
         {{ form_label(form.description) }}
         {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
     </div>
+    <h2>Ingrédients</h2>
+    {% for ingredientForm in form.ingredients %}
+        <div class="ingredient-form">
+            {{ form_row(ingredientForm.name) }}
+            {{ form_row(ingredientForm.quantity) }}
+            {{ form_row(ingredientForm.unit) }}
+            <button type="button" class="remove-ingredient">Supprimer</button>
+        </div>
+    {% endfor %}
+    <button type="button" class="add-ingredient">Ajouter un ingrédient</button>
+    <button type="submit">Ajouter la recette</button>
+
     {{ form_end(form) }}
 {% endblock %}

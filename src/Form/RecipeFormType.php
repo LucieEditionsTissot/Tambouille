@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Equipement;
+use App\Entity\Ingredient;
+use App\Entity\PreparationStep;
 use App\Entity\Recipe;
 use App\Entity\RecipeType;
 use App\Entity\User;
@@ -65,7 +67,33 @@ class RecipeFormType extends AbstractType
             ])
             ->add('nbPersons', IntegerType::class)
             ->add('author')
-            ->add('equipements')
+            ->add('ingredients', CollectionType::class, [
+                'entry_type' => IngredientFormType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => 'Ingrédients',
+                'prototype' => '{{ form_widget(form.prototype) }}',
+                'prototype_data' => new Ingredient(),
+            ])
+            ->add('steps', CollectionType::class, [
+                'entry_type' => PreparationStepType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => 'Étapes de préparation',
+                'prototype' => '{{ form_widget(form.prototype) }}',
+                'prototype_data' => new PreparationStep(),
+            ])
+            ->add('equipements', CollectionType::class, [
+                'entry_type' => EquipementFormType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => 'Équipements',
+                'prototype' => '{{ form_widget(form.prototype) }}',
+                'prototype_data' => new Equipement(),
+            ])
             ->add('submit', SubmitType::class);
     }
 
