@@ -1,5 +1,9 @@
 {% extends 'components/layout.html.twig' %}
 
+{% block customStylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('css/feed.css') }}">
+{% endblock %}
 
 
     {% block contentHeader %}
@@ -19,27 +23,22 @@
     {% block contentBody %}
 
         {% if hasGroup  %}
-            <div>
+            <div class="d-flex flex-column gap">
+                {% for post in posts %}
 
-                <h1> my feed {{ group.name }} ...</h1>
+                    {% if post.type ==  1  %} {#    POST_TYPE_NOTIFICATION#}
+                        {{ component('post_notification', {
+                            post: post,
+                        }) }}
+                    {% else %}
+                        {{ component('post', {
+                            post: post,
+                        }) }}
+                    {% endif %}
 
-                <div class="d-flex flex-column gap-4">
-                    {% for post in posts %}
-
-                        {% if post.type ==  1  %} {#    POST_TYPE_NOTIFICATION#}
-                            {{ component('post_notification', {
-                                post: post,
-                            }) }}
-                        {% else %}
-                            {{ component('post', {
-                                post: post,
-                            }) }}
-                        {% endif %}
-
-                    {% endfor %}
-                </div>
-
+                {% endfor %}
             </div>
+
         {% endif %}
     {% endblock %}
 

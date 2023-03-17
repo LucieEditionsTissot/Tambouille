@@ -1,6 +1,14 @@
-<div class="border border-primary d-flex  flex-column">
-    <span>{{ post.author.username }} a ajouté une nouvelle recette : {{ post.recipe.title }}</span>
-    <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="Image de la recette" style="height: 100px; width: 100px">
-    <span>{{ post.createdAt|date("m/d/Y") }}</span>
+<link rel="stylesheet" href="{{ asset('css/post_notification.css') }}">
+
+<div class="notif-container">
+    <img src="{{ asset('uploads/images/' ~ post.image) }}" alt=" ">
+    <div class="notif-text">
+        <div class="notif-text-title">
+            <span class="notif-text-title-user">{{ post.author.username }}</span>
+            a ajouté une nouvelle recette :
+            <span class="post-recipe-title">{{ post.recipe.title }}</span>
+        </div>
+        <span class="comment-date">{{ post.createdAt|date("m/d/Y") }}</span>
+    </div>
 
 </div>
