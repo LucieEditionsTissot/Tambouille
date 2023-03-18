@@ -3,6 +3,7 @@
 
 {% block customStylesheets %}
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/group.css') }}">
 {% endblock %}
 
 {% block contentHeader %}
@@ -13,7 +14,7 @@
 
 
 {% block contentBody %}
-<div class="d-flex justify-content-center flex-column p-4" style="background-color: white;border:#E5DDCD 1px solid; border-radius: 10px">
+<div class="d-flex justify-content-center flex-column p-4 group-div">
     {{ form_start(groupForm) }}
     {{ form_row(groupForm.name) }}
     <p style="font-weight: 600" class="mb-1 mt-5">Inviter vos proches</p>

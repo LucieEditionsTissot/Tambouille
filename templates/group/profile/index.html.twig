@@ -2,6 +2,7 @@
 
 {% block customStylesheets %}
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/group.css') }}">
 {% endblock %}
 
 {% block contentHeader %}
@@ -12,7 +13,7 @@
 
 
 {% block contentBody %}
-<div class="d-flex justify-content-center flex-column p-4" style="background-color: white;border:#E5DDCD 1px solid; border-radius: 10px">
+<div class="d-flex justify-content-center flex-column p-4 group-div">
     <div>
         <span class="form-input-title">Nom de group </span>
         <p class="mt-2 p-2" style="background-color: rgba(229,221, 205,50%); border: none; border-radius: 5px">

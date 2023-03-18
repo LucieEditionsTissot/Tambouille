@@ -2,6 +2,7 @@
 
 {% block customStylesheets %}
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/group.css') }}">
 {% endblock %}
 
 {% block contentHeader %}
@@ -12,7 +13,7 @@
 
 
 {% block contentBody %}
-<div class="d-flex justify-content-center flex-column p-4" style="background-color: white;border:#E5DDCD 1px solid; border-radius: 10px">
+<div class="d-flex justify-content-center flex-column p-4 group-div">
     <form action="{{ path('join_group') }}" method="post">
         <p style="font-weight: 600;">Vous souhaitez rejoindre un groupe ? Entrez le code de ce groupe ci-dessous pour le rejoindre.</p>
         <div class="d-flex align-items-center">
