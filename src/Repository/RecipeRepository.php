@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchRecipeData;
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,6 +41,25 @@ class RecipeRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findSearchResult(SearchRecipeData $searchData): array
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC');
+
+        if ($searchData->q) {
+            $qb->andWhere('r.title LIKE :q OR r.ingredients LIKE :q')
+                ->setParameter('q', '%' . $searchData->q . '%');
+        }
+
+        if ($searchData->type) {
+            $qb->andWhere('r.recipeType = :type')
+                ->setParameter('type', $searchData->type);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+}
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */
@@ -63,4 +84,4 @@ class RecipeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+
