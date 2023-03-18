@@ -1,15 +1,31 @@
 {% extends 'components/layout.html.twig' %}
+{% form_theme groupForm 'bootstrap_5_layout.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/group.css') }}">
+{% endblock %}
 
 {% block contentHeader %}
-    Créer un groupe
+    <h1 class="pl-3" style="font-weight: bold">
+        Créer un groupe
+    </h1>
 {% endblock %}
 
 
 {% block contentBody %}
+<div class="d-flex justify-content-center flex-column p-4 group-div">
     {{ form_start(groupForm) }}
     {{ form_row(groupForm.name) }}
+    <p style="font-weight: 600" class="mb-1 mt-5">Inviter vos proches</p>
+    <p>Pour inviter vos proches, partagez ce code avec eux pour qu'ils puissent rejoindre votre groupe.</p>
     {{ form_row(groupForm.code) }}
-
-    <button type="submit" class="btn">Create group</button>
     {{ form_end(groupForm) }}
+
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn" style="background-color: #E6A203; border-radius: 10px; width: fit-content">
+            Créer
+        </button>
+    </div>
+</div>
 {% endblock %}

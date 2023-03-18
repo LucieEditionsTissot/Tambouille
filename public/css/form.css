@@ -1,0 +1,16 @@
+.form-input-style {
+    background-color: rgba(229,221, 205,50%);
+    border: none
+}
+
+.form-input-style:disabled {
+    background-color: rgba(229,221, 205,50%);
+}
+
+.form-input-title {
+    font-weight: 600;
+}
+
+.form-submit {
+    background-color: #E6A203; border-radius: 10px
+}
