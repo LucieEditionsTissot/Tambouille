@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -25,6 +27,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+
         $user = new User();
         $user->setEmail('ryan.gosling@love.com');
         $user->setPassword($this->passwordHasher->hashPassword($user, '1mot2passeSTP'));
@@ -59,11 +62,14 @@ class UserFixtures extends Fixture
         $user4->setPhone('0123456789');
         $user4->setRoles(['ROLE_USER']);
 
+        $manager->persist($user);
 
+        $manager->flush();
         $manager->persist($user);
         $manager->persist($user2);
         $manager->persist($user3);
         $manager->persist($user4);
+
         $this->addReference(self::USER_REFERENCE, $user);
         $this->addReference(self::USER2_REFERENCE, $user2);
         $this->addReference(self::USER3_REFERENCE, $user3);
@@ -71,4 +77,6 @@ class UserFixtures extends Fixture
 
         $manager->flush();
     }
+
+
 }

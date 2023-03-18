@@ -6,16 +6,19 @@ use App\Entity\Group;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class GroupFixtures extends Fixture implements DependentFixtureInterface
+class GroupFixtures extends Fixture implements OrderedFixtureInterface
 {
+    public const GROUP_REFERENCE = 'group1';
+
     public function load(ObjectManager $manager)
     {
         $group1 = new Group();
         $group1->setName('La famille');
         $group1->setCode('GRP1');
-        $manager->persist($group1);
+
 
 
         $user = $this->getReference(UserFixtures::USER_REFERENCE);
@@ -29,6 +32,8 @@ class GroupFixtures extends Fixture implements DependentFixtureInterface
         $group1->addUser($user3);
         $group1->addUser($user4);
 
+        $this->addReference(self::GROUP_REFERENCE , $group1);
+        $manager->persist($group1);
         $manager->flush();
     }
 
@@ -37,5 +42,9 @@ class GroupFixtures extends Fixture implements DependentFixtureInterface
         return [
             UserFixtures::class,
         ];
+    }
+    public function getOrder(): int
+    {
+        return 2;
     }
 }

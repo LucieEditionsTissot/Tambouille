@@ -12,7 +12,9 @@ class IngredientFixtures extends Fixture
     public const INGREDIENT2_REFERENCE = 'ingredient2';
     public const INGREDIENT3_REFERENCE = 'ingredient3';
     public const INGREDIENT4_REFERENCE = 'ingredient4';
-    
+    public const INGREDIENT5_REFERENCE = 'ingredient5';
+
+
     public function load(ObjectManager $manager)
     {
         $ingredient1 = new Ingredient();
@@ -36,10 +38,18 @@ class IngredientFixtures extends Fixture
         $manager->persist($ingredient4);
         $manager->persist($ingredient5);
 
-        $manager->flush();
         $this->addReference(self::INGREDIENT_REFERENCE , $ingredient1);
         $this->addReference(self::INGREDIENT2_REFERENCE, $ingredient2);
         $this->addReference(self::INGREDIENT3_REFERENCE, $ingredient3);
         $this->addReference(self::INGREDIENT4_REFERENCE, $ingredient4);
+        $this->addReference(self::INGREDIENT5_REFERENCE, $ingredient5);
+
+        $manager->flush();
+
+    }
+
+    public function getOrder()
+    {
+        return 3;
     }
 }

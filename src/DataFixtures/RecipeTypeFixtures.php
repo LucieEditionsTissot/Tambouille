@@ -8,6 +8,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class RecipeTypeFixtures extends Fixture
 {
+    public const RECIPETYPE1_REFERENCE = 'recipeType1';
+    public const RECIPETYPE2_REFERENCE = 'recipeType2';
+    public const RECIPETYPE3_REFERENCE = 'recipeType3';
+    public const RECIPETYPE4_REFERENCE = 'recipeType4';
+    
     public function load(ObjectManager $manager)
     {
         $recipeType1 = new RecipeType();
@@ -27,6 +32,16 @@ class RecipeTypeFixtures extends Fixture
         $manager->persist($recipeType3);
         $manager->persist($recipeType4);
 
+        $this->addReference(self::RECIPETYPE1_REFERENCE, $recipeType1);
+        $this->addReference(self::RECIPETYPE2_REFERENCE, $recipeType2);
+        $this->addReference(self::RECIPETYPE3_REFERENCE, $recipeType3);
+        $this->addReference(self::RECIPETYPE4_REFERENCE, $recipeType4);
+
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 2;
     }
 }

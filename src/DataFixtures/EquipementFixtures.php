@@ -8,6 +8,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class EquipementFixtures extends Fixture
 {
+
+    public const EQUIPEMENT_REFERENCE = 'EQUIPEMENT1';
+    public const EQUIPEMENT2_REFERENCE = 'EQUIPEMENT2';
+    public const EQUIPEMENT3_REFERENCE = 'EQUIPEMENT3';
+    public const EQUIPEMENT4_REFERENCE = 'EQUIPEMENT4';
+
     public function load(ObjectManager $manager)
     {
         $equipement1 = new Equipement();
@@ -27,7 +33,17 @@ class EquipementFixtures extends Fixture
         $manager->persist($equipement3);
         $manager->persist($equipement4);
 
+        $this->addReference(self::EQUIPEMENT_REFERENCE, $equipement1);
+        $this->addReference(self::EQUIPEMENT2_REFERENCE, $equipement2);
+        $this->addReference(self::EQUIPEMENT3_REFERENCE, $equipement3);
+        $this->addReference(self::EQUIPEMENT4_REFERENCE, $equipement4);
+
 
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 6;
     }
 }
