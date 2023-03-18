@@ -5,38 +5,74 @@
 {% endblock %}
 
 {% block contentBody %}
-    <a href="{{ path('app_cooking_book') }}">Retour</a>
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    <div class="form-group">
-        {{ form_label(form.title) }}
-        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.cookingTime) }}
-        {{ form_widget(form.cookingTime, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.image) }}
-        {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.nbPersons) }}
-        {{ form_widget(form.nbPersons, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.author) }}
-        {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-    </div>
-    <div class="form-group">
-        {{ form_label(form.equipements) }}
-        {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.description) }}
-        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    {{ form_end(form) }}
+    {% block body %}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.cookingTime) }}
+            {{ form_widget(form.cookingTime, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.cookingTime) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.image) }}
+            {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+            {{ form_errors(form.image) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.recipeType) }}
+            {{ form_widget(form.recipeType, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.recipeType) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.nbPersons) }}
+            {{ form_widget(form.nbPersons, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nbPersons) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.author) }}
+            {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.author) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.ingredients) }}
+            {% for ingredientForm in form.ingredients %}
+                <div class="ingredient-form">
+                    {{ form_widget(form.ingredients, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.equipements) }}
+            {% for equipementForm in form.equipements %}
+                <div class="equipement-form">
+                    {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.preparationStep) }}
+            {% for stepForm in form.preparationStep %}
+                <div class="step-form">
+                    {{ form_widget(form.preparationStep, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+
+        {{ form_end(form) }}
+    <button type="submit" class="btn btn-primary">Ajouter la recette</button>
+    {% endblock %}
+
 {% endblock %}

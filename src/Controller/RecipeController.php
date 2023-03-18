@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\Image;
+use App\Entity\Ingredient;
 use App\Entity\Post;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Form\IngredientFormType;
 use App\Form\RecipeFormType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
@@ -26,26 +28,6 @@ use const App\Entity\POST_TYPE_NOTIFICATION;
 #[Route('/recipe', name: 'recipe_')]
 class RecipeController extends AbstractController
 {
-//    #[Route('/list', name: 'list')]
-//    public function index(Request $request,EntityManagerInterface $entityManager, ?User $user): Response
-//    {
-//        $session = $request->getSession();
-//        $groupId = $session->get(GROUP_ID);
-//        if(!$groupId){
-//
-//        }else{
-//            $group = $this->getGroupById($entityManager, $groupId);
-//        }
-//
-//        $recipe = $this->find($entityManager, $group);
-//        return $this->render('recipe/listRecipe.html.twig', [
-//            'hasGroup'=>$user->hasAtLeastOneGroup() and isset($group),
-//            "group"=>$group,
-//            "recipes"=>$recipe
-//        ]);
-//    }
-
-
     private function getGroupById(EntityManagerInterface $entityManager, string $id){
         return $entityManager->getRepository(Group::class)->findOneBy(
             array('id'=>$id)
@@ -55,7 +37,6 @@ class RecipeController extends AbstractController
     #[Route('/add', name: 'add')]
     public function addRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-
         $recipe = new Recipe();
         $groupId = $request->getSession()->get(GROUP_ID);
         $group = $this->getGroupById($entityManager, $groupId);
@@ -85,9 +66,10 @@ class RecipeController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $images = [$newFilename]; // Wrap the newFilename in an array
+                $images = [$newFilename];
                 $recipe->setImages($images);
             }
+
 
             $newPost = $this->createPostToNotify($recipe);
 
@@ -111,7 +93,6 @@ class RecipeController extends AbstractController
         }
         return $post;
     }
-
 
     #[Route('/{id}/edit', name: 'edit')]
     public function editRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, int $id): Response
@@ -190,6 +171,26 @@ class RecipeController extends AbstractController
         $this->addFlash('success', 'Votre recette a bien été supprimé');
 
         return $this->redirectToRoute('app_cooking_book');
+    }
+
+    #[Route('/new/ingredient', name: 'add_ingredient')]
+    public function newIngredient(Request $request, EntityManagerInterface $entityManager)
+    {
+        $ingredient = new Ingredient();
+        $form = $this->createForm(IngredientFormType::class, $ingredient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->getRepository(Ingredient::class);
+            $entityManager->persist($ingredient);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_add');
+        }
+
+        return $this->render('in/new_ingredient.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
 
