@@ -9,7 +9,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class GroupFixtures extends Fixture implements OrderedFixtureInterface
+class GroupFixtures extends Fixture
 {
     public const GROUP_REFERENCE = 'group1';
 
@@ -43,8 +43,5 @@ class GroupFixtures extends Fixture implements OrderedFixtureInterface
             UserFixtures::class,
         ];
     }
-    public function getOrder(): int
-    {
-        return 2;
-    }
+
 }

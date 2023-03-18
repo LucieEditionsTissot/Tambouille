@@ -3,12 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
@@ -63,8 +60,6 @@ class UserFixtures extends Fixture
         $user4->setRoles(['ROLE_USER']);
 
         $manager->persist($user);
-
-        $manager->flush();
         $manager->persist($user);
         $manager->persist($user2);
         $manager->persist($user3);
