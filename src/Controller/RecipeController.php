@@ -70,6 +70,7 @@ class RecipeController extends AbstractController
                 $recipe->setImages($images);
             }
 
+
             $newPost = $this->createPostToNotify($recipe);
 
             $entityManager->persist($recipe);
@@ -92,7 +93,6 @@ class RecipeController extends AbstractController
         }
         return $post;
     }
-
 
     #[Route('/{id}/edit', name: 'edit')]
     public function editRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, int $id): Response

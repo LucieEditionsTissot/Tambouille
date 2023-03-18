@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Equipement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,14 +16,17 @@ class EquipementFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de l\'équipement',
+                'label' => 'Name',
                 'attr' => [
-                    'placeholder' => 'Saisir le nom de l\'équipement'
+                    'class' => 'form-control'
                 ]
             ])
-
-            ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer'
+            ->add('isNeeded', CheckboxType::class, [
+                'label' => 'Nécessaire ?',
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-check-input'
+                ]
             ]);
     }
 

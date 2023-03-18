@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientController extends AbstractController
 {
-    #[Route('/add', name: 'ingredient_create_modal')]
+    #[Route('/modal', name: 'ingredient_create_modal')]
     public function createModal(Request $request, EntityManagerInterface $entityManager): Response
     {
         $ingredient = new Ingredient();
@@ -28,11 +28,9 @@ class IngredientController extends AbstractController
             $entityManager->persist($ingredient);
             $entityManager->flush();
 
-            return $this->render('ingredient/ingredientForm.html.twig', [
-                'form'=>$form->createView()
-            ]);
+            return $this->redirectToRoute('recipe_add');
         }
-        return $this->render('ingredient/ingredientForm.html.twig', [
+        return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
         ]);
     }

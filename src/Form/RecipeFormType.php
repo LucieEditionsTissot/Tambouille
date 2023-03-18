@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Equipement;
+use App\Entity\Ingredient;
 use App\Entity\PreparationStep;
 use App\Entity\Recipe;
 use App\Entity\RecipeType;
@@ -58,43 +59,32 @@ class RecipeFormType extends AbstractType
                 'class' => RecipeType::class,
                 'choice_label' => 'name',
             ])
-            ->add('nbPersons', IntegerType::class)
             ->add('author')
-            ->add('ingredients', CollectionType::class, [
-                'entry_type' => IngredientFormType::class,
-                'entry_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'class' => 'ingredient-row'
-                    ]
-                ],
+            ->add('nbPersons', IntegerType::class)
+
+            ->add('equipements', CollectionType::class, [
+                'entry_type' => EquipementFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'prototype_name' => '__ingredient__',
-                'attr' => [
-                    'class' => 'ingredient-collection'
-                ],
+                'prototype_name' => '__ingredient_name__',
             ])
-            ->add('steps', CollectionType::class, [
+            ->add('ingredients', CollectionType::class, [
+                'entry_type' => IngredientFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'prototype_name' => '__ingredient_name__',
+            ])
+            ->add('ingredientQuantity', TextType::class)
+            ->add('ingredientVolume', TextType::class)
+            ->add('preparationStep', CollectionType::class, [
                 'entry_type' => PreparationStepType::class,
-                'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'by_reference' => false,
-                'label' => 'Étapes de préparation',
-                'prototype' => '{{ form_widget(form.prototype) }}',
-                'prototype_data' => new PreparationStep(),
-            ])
-            ->add('equipements', CollectionType::class, [
-                'entry_type' => EquipementFormType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'by_reference' => false,
-                'label' => 'Équipements',
-                'prototype' => '{{ form_widget(form.prototype) }}',
-                'prototype_data' => new Equipement(),
-            ])
-            ->add('submit', SubmitType::class);
+                'allow_delete' => true,
+                'prototype' => true,
+                'prototype_name' => '__ingredient_name__',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

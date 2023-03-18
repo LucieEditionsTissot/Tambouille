@@ -2,9 +2,10 @@
 
 namespace App\Form;
 use App\Entity\Ingredient;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,17 +15,32 @@ class IngredientFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom de l\'ingrédient',
+            ->add('quantity', IntegerType::class, [
+                'label' => 'Quantity',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('ingredientType', TextType::class, [
-                'label' => 'Type d\'ingrédient',
+            ->add('volume', ChoiceType::class, [
+                'label' => 'Volume',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'choices' => [
+                    'ml' => 'ml',
+                    'cl' => 'cl',
+                    'dl' => 'dl',
+                    'l' => 'l',
+                    'g' => 'g',
+                    'kg' => 'kg'
+                ]
             ])
-            ->add('ingredientQuantity', IntegerType::class, [
-                'label' => 'Quantité d\'ingrédient',
-            ])
-            ->add('ingredientVolume', TextType::class, [
-                'label' => 'Volume d\'ingrédient',
+            ->add('ingredient', EntityType::class, [
+                'class' => Ingredient::class,
+                'label' => 'Ingredient',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ]);
     }
 

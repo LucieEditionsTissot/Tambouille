@@ -38,13 +38,6 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipeType $recipeType = null;
 
-    #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'recipes')]
-    private Collection $equipements;
-
-
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: PreparationStep::class)]
-    private Collection $steps;
-
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Group $groupId = null;
@@ -55,16 +48,27 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
+    #[ORM\Column]
+    private ?int $ingredientQuantity = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ingredientVolume = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $preparationStep = null;
+
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Equipement::class)]
+    private Collection $equipements;
+
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
-        $this->steps = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->equipements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,61 +160,6 @@ class Recipe
         return $this;
     }
 
-    /**
-     * @return Collection<int, Equipement>
-     */
-    public function getEquipements(): Collection
-    {
-        return $this->equipements;
-    }
-
-    public function addEquipement(Equipement $equipement): self
-    {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements->add($equipement);
-        }
-
-        return $this;
-    }
-
-    public function removeEquipement(Equipement $equipement): self
-    {
-        $this->equipements->removeElement($equipement);
-
-        return $this;
-    }
-
-
-    /**
-     * @return Collection<int, PreparationStep>
-     */
-    public function getSteps(): Collection
-    {
-        return $this->steps;
-    }
-
-    public function addStep(PreparationStep $step): self
-    {
-        if (!$this->steps->contains($step)) {
-            $this->steps->add($step);
-            $step->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStep(PreparationStep $step): self
-    {
-        if ($this->steps->removeElement($step)) {
-            // set the owning side to null (unless already changed)
-            if ($step->getRecipe() === $this) {
-                $step->setRecipe(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getGroupId(): ?Group
     {
         return $this->groupId;
@@ -283,6 +232,42 @@ class Recipe
         return $this;
     }
 
+    public function getIngredientQuantity(): ?int
+    {
+        return $this->ingredientQuantity;
+    }
+
+    public function setIngredientQuantity(int $ingredientQuantity): self
+    {
+        $this->ingredientQuantity = $ingredientQuantity;
+
+        return $this;
+    }
+
+    public function getIngredientVolume(): ?string
+    {
+        return $this->ingredientVolume;
+    }
+
+    public function setIngredientVolume(string $ingredientVolume): self
+    {
+        $this->ingredientVolume = $ingredientVolume;
+
+        return $this;
+    }
+
+    public function getPreparationStep(): ?string
+    {
+        return $this->preparationStep;
+    }
+
+    public function setPreparationStep(string $preparationStep): self
+    {
+        $this->preparationStep = $preparationStep;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Ingredient>
      */
@@ -312,4 +297,35 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Equipement>
+     */
+    public function getEquipements(): Collection
+    {
+        return $this->equipements;
+    }
+
+    public function addEquipement(Equipement $equipement): self
+    {
+        if (!$this->equipements->contains($equipement)) {
+            $this->equipements->add($equipement);
+            $equipement->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipement(Equipement $equipement): self
+    {
+        if ($this->equipements->removeElement($equipement)) {
+            // set the owning side to null (unless already changed)
+            if ($equipement->getRecipe() === $this) {
+                $equipement->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -44,48 +44,35 @@
             {{ form_errors(form.author) }}
         </div>
         <div class="form-group">
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ingredientModal"
-               data-url="{{ path('ingredient_create_modal') }}">Add Ingredient</a>
-            {{ form_row(form.ingredients) }}
-            <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog"
-                 aria-labelledby="ingredientModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ingredientModalLabel">Add Ingredient</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {% include 'ingredient/ingredientForm.html.twig' %}
-                        </div>
-                    </div>
+            {{ form_label(form.ingredients) }}
+            {% for ingredientForm in form.ingredients %}
+                <div class="ingredient-form">
+                    {{ form_widget(form.ingredients, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
                 </div>
-            </div>
+            {% endfor %}
         </div>
-        <div class="form-group">
-            {{ form_label(form.steps) }}
-            {{ form_widget(form.steps, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.steps) }}
-        </div>
+
         <div class="form-group">
             {{ form_label(form.equipements) }}
-            {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.equipements) }}
+            {% for equipementForm in form.equipements %}
+                <div class="equipement-form">
+                    {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+                </div>
+            {% endfor %}
         </div>
-        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.preparationStep) }}
+            {% for stepForm in form.preparationStep %}
+                <div class="step-form">
+                    {{ form_widget(form.preparationStep, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+
         {{ form_end(form) }}
+    <button type="submit" class="btn btn-primary">Ajouter la recette</button>
     {% endblock %}
-    <button type="submit">Ajouter la recette</button>
-    {% block javascripts %}
-        <script>
-            $(document).ready(function () {
-                $('#ingredientModal').on('show.bs.modal', function (e) {
-                    var url = $(e.relatedTarget).data('url');
-                    $(this).find('.modal-body').load(url);
-                });
-            });
-        </script>
-    {% endblock %}
+
 {% endblock %}
