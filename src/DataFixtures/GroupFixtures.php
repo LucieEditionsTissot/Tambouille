@@ -19,8 +19,6 @@ class GroupFixtures extends Fixture
         $group1->setName('La famille');
         $group1->setCode('GRP1');
 
-
-
         $user = $this->getReference(UserFixtures::USER_REFERENCE);
         $user2 = $this->getReference(UserFixtures::USER2_REFERENCE);
         $user3 = $this->getReference(UserFixtures::USER3_REFERENCE);
@@ -37,11 +35,5 @@ class GroupFixtures extends Fixture
         $manager->flush();
     }
 
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
-    }
 
 }

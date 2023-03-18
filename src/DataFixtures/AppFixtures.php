@@ -18,25 +18,23 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-
-        $referenceRepository = new ReferenceRepository($manager);
-
+        $this->referenceRepository = new ReferenceRepository($manager);
 
         $userFixtures = new UserFixtures($this->passwordHasher);
 
         $userFixtures->load($manager);
 
-        $referenceRepository->setReference(UserFixtures::USER_REFERENCE, $userFixtures->getReference(UserFixtures::USER_REFERENCE));
-        $referenceRepository->setReference(UserFixtures::USER2_REFERENCE, $userFixtures->getReference(UserFixtures::USER2_REFERENCE));
+        $this->referenceRepository->setReference(UserFixtures::USER_REFERENCE, $userFixtures->getReference(UserFixtures::USER_REFERENCE));
+        $this->referenceRepository->setReference(UserFixtures::USER2_REFERENCE, $userFixtures->getReference(UserFixtures::USER2_REFERENCE));
 
 
         $groupFixtures = new GroupFixtures();
 
-        $groupFixtures->setReferenceRepository($referenceRepository);
+        $groupFixtures->setReferenceRepository($this->referenceRepository);
 
         $groupFixtures->load($manager);
 
-        $referenceRepository->setReference(GroupFixtures::GROUP_REFERENCE, $groupFixtures->getReference(GroupFixtures::GROUP_REFERENCE));
+        $this->referenceRepository->setReference(GroupFixtures::GROUP_REFERENCE, $groupFixtures->getReference(GroupFixtures::GROUP_REFERENCE));
 
         $manager->flush();
     }

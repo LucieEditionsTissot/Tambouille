@@ -64,13 +64,15 @@ class UserFixtures extends Fixture
         $manager->persist($user2);
         $manager->persist($user3);
         $manager->persist($user4);
+        $manager->flush();
+
 
         $this->addReference(self::USER_REFERENCE, $user);
         $this->addReference(self::USER2_REFERENCE, $user2);
         $this->addReference(self::USER3_REFERENCE, $user3);
         $this->addReference(self::USER4_REFERENCE, $user4);
 
-        $manager->flush();
+
     }
 
 

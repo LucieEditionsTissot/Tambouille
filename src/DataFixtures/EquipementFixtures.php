@@ -41,9 +41,4 @@ class EquipementFixtures extends Fixture
 
         $manager->flush();
     }
-
-    public function getOrder()
-    {
-        return 6;
-    }
 }
