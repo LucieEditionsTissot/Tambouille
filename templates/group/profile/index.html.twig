@@ -1,5 +1,9 @@
 {% extends 'components/layout.html.twig' %}
 
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
 {% block contentHeader %}
     <h1 class="pl-3" style="font-weight: bold">
         {{ group.name }}
@@ -10,7 +14,7 @@
 {% block contentBody %}
 <div class="d-flex justify-content-center flex-column p-4" style="background-color: white;border:#E5DDCD 1px solid; border-radius: 10px">
     <div>
-        <span>Nom de group </span>
+        <span class="form-input-title">Nom de group </span>
         <p class="mt-2 p-2" style="background-color: rgba(229,221, 205,50%); border: none; border-radius: 5px">
             {{group.name }}
         </p>
@@ -19,10 +23,12 @@
     <div>
         <p style="font-weight: 600" class="mb-1 mt-3">Inviter vos proches</p>
         <p>Pour inviter vos proches, partagez ce code avec eux pour qu'ils puissent rejoindre votre groupe.</p>
-        <span>Code </span>
-        <p class="mt-2 p-2" style="background-color: rgba(229,221, 205,50%); border: none; border-radius: 5px; width: fit-content">
-            {{group.code }}
-        </p>
+        <div class="mb-4">
+            <span class="form-input-title">Code groupe: </span>
+            <span class="mt-2 p-2 form-input-style" style="border-radius: 5px; width: fit-content">
+                {{group.code }}
+            </span>
+        </div>
     </div>
 
     <div>
@@ -30,9 +36,9 @@
             <p>Membres du groupe</p>
         <ul style="border-top: #E5DDCD 1px solid; width: fit-content" class="p-2">
             {% for user in group.users %}
-                <li class="d-flex align-items-center">
+                <li class="d-flex align-items-center mb-3">
                     {% if user.image %}
-                        <img style="height: 44px; width: 44px" src="{{ asset('uploads/images/' ~ user.image) }}">
+                        <img style="border-radius: 25px;height: 44px; width: 44px" src="{{ asset('uploads/images/' ~ user.image) }}">
                     {% else %}
                         <div style="background-color: #E6A203; border-radius: 25px; height: 44px; width: 44px" class="d-flex justify-content-center align-items-center">
                             {{ user.username|first }}

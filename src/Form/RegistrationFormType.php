@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,14 +20,14 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email',null, [
-                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none']
+                'attr'=> ['class'=> 'form-input-style']
             ])
             ->add('username',null, [
-                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'attr'=> ['class'=> 'form-input-style'],
                 'label' => 'Prénom'
             ])
             ->add('phone', TelType::class, [
-                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'attr'=> ['class'=> 'form-input-style'],
                 'label' => 'Téléphone'
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -36,14 +37,14 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
-                'attr'=> ['style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'attr'=> ['class'=> 'form-input-style'],
                 'label' => "Termes d'utilisation"
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'style'=> 'background-color: rgba(229,221, 205,50%); border: none'],
+                'attr' => ['autocomplete' => 'new-password', 'class'=> 'form-input-style'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -55,6 +56,12 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'form-submit btn'
+                ],
+                'label' => "S’inscrire"
             ])
         ;
     }
