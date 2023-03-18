@@ -14,26 +14,24 @@
 {% endblock %}
 
 {% block body %}
-    <div class="d-flex">
-        <div>
-            {{ component('sidebar', {
-                user: app.user,
-            }) }}
+    <div>
+        {{ component('sidebar', {
+            user: app.user,
+        }) }}
+    </div>
+    <hr>
+    <hr>
+    <div>
+        <div style="box-shadow: 3px 3px 3px lightgray" class="p-3">
+
+            {% block contentHeader %}
+            {% endblock %}
         </div>
-        <div>
-            <div>
 
-                {% block contentHeader %}
-                {% endblock %}
-            </div>
+        <div style="background-color: rgba(229,221,205, 10%)" class="p-5">
 
-            <hr>
-
-            <div>
-
-                {% block contentBody %}
-                {% endblock %}
-            </div>
+            {% block contentBody %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

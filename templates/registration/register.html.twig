@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
 {% block title %}Register{% endblock %}
 
 {% block body %}
@@ -22,14 +26,9 @@
                 }) }}
             {{ form_end(registrationForm) }}
 
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn" style="background-color: #E6A203; border-radius: 10px">
-                    S’inscrire
-                </button>
-            </div>
             <div class="d-flex justify-content-between mt-5">
                 <p>Déjà un compte ?</p>
-                <a href="{{ path('app_login') }}" class="btn btn-outline" style="background-color: #E6A203; border-radius: 10px">
+                <a href="{{ path('app_login') }}" class="btn btn-outline form-submit">
                     Se connecter
                 </a>
             </div>

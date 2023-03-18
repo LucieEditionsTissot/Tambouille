@@ -13,9 +13,17 @@ class GroupFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'attr'=> ['class'=> 'form-input-style'],
+                'label' => 'Nom de groupe'
+            ])
             ->add('code', TextType::class, array(
                 'disabled' => true,
+                'attr'=> [
+                    'style' => 'width: fit-content',
+                    'class' => 'form-input-style'
+                    ],
+                'label' => 'Code groupe'
             ));
     }
 
