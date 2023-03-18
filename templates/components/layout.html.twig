@@ -15,10 +15,12 @@
 
 {% block body %}
     <div class="d-flex">
-        <div class="w-25">
-            {{ component('sidebar', {
-                user: app.user,
-            }) }}
+        <div class="w-25" style="background-color: rgba(229,221, 205,50%); min-height: 100vh">
+            <div style="position: sticky; top: 0;">
+                {{ component('sidebar', {
+                    user: app.user,
+                }) }}
+            </div>
         </div>
         <div class="w-75">
             <div style="box-shadow: 0 3px 3px lightgray" class="p-3">
