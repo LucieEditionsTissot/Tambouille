@@ -14,26 +14,26 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        {{ component('sidebar', {
-            user: app.user,
-        }) }}
-    </div>
-    <hr>
-    <hr>
-    <div>
+    <div class="d-flex">
         <div>
-
-            {% block contentHeader %}
-            {% endblock %}
+            {{ component('sidebar', {
+                user: app.user,
+            }) }}
         </div>
-
-        <hr>
-
         <div>
+            <div>
 
-            {% block contentBody %}
-            {% endblock %}
+                {% block contentHeader %}
+                {% endblock %}
+            </div>
+
+            <hr>
+
+            <div>
+
+                {% block contentBody %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 {% endblock %}
