@@ -1,0 +1,60 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block contentHeader %}
+
+{% endblock %}
+
+{% block contentBody %}
+    <!-- Modal pour ajouter un ingrédient -->
+    <div class="modal fade" id="add-ingredient-modal" tabindex="-1" aria-labelledby="add-ingredient-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="add-ingredient-modal-label">Ajouter un ingrédient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(ingredientForm, {'attr': {'class': 'ajax-form'}}) }}
+                    {{ form_row(ingredientForm.name) }}
+                    {{ form_row(ingredientForm.quantity) }}
+                    {{ form_row(ingredientForm.unit) }}
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    {{ form_end(ingredientForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton pour afficher la modal pour ajouter un ingrédient -->
+
+
+    <!-- Script pour soumettre le formulaire d'ajout d'ingrédient en AJAX -->
+    <script>
+        $(document).on('submit', '.ajax-form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                success: function(response) {
+                    // Mettre à jour la liste des ingrédients avec la nouvelle entrée
+                    var ingredientList = $('#ingredient-list');
+                    var newIngredient = $(response).find('.ingredient-row');
+                    ingredientList.append(newIngredient);
+                    // Cacher la modal
+                    $('#add-ingredient-modal').modal('hide');
+                    // Réinitialiser le formulaire
+                    form[0].reset();
+                },
+                error: function(response) {
+                    console.log('Une erreur est survenue : ' + response);
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
+
