@@ -1,15 +1,22 @@
 {% extends 'components/layout.html.twig' %}
 
 {% block contentHeader %}
-    Rejoindre un groupe
+    <h1 class="pl-3" style="font-weight: bold">
+        Rejoindre un groupe
+    </h1>
 {% endblock %}
 
 
 {% block contentBody %}
-
+<div class="d-flex justify-content-center flex-column p-4" style="background-color: white;border:#E5DDCD 1px solid; border-radius: 10px">
     <form action="{{ path('join_group') }}" method="post">
-        <label for="code">Code famille:</label>
-        <input type="text" id="code" name="code">
-        <button type="submit">Join group</button>
+        <p style="font-weight: 600;">Vous souhaitez rejoindre un groupe ? Entrez le code de ce groupe ci-dessous pour le rejoindre.</p>
+        <div class="d-flex align-items-center">
+            <input type="text" id="code" name="code" placeholder="ex : 1dza23..." style="background-color: rgba(229,221, 205,50%); border: none; border-radius: 5px" class="p-1">
+            <button type="submit" class="btn ml-3" style="background-color: #E6A203; border-radius: 10px; width: fit-content;color: white">
+                Rejoindre
+            </button>
+        </div>
     </form>
+</div>
 {% endblock %}
