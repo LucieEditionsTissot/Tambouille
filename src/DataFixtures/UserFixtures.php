@@ -60,7 +60,6 @@ class UserFixtures extends Fixture
         $user4->setRoles(['ROLE_USER']);
 
         $manager->persist($user);
-        $manager->persist($user);
         $manager->persist($user2);
         $manager->persist($user3);
         $manager->persist($user4);

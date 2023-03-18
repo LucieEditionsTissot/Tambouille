@@ -53,8 +53,3 @@ class PreparationStepFixtures extends Fixture
         return 4;
     }
 }
-
-
-
-
-
