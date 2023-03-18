@@ -1,9 +1,6 @@
 .notif-container{
     border: 1px solid var(--beige);
     border-radius: 5px;
-/* TEMPORARY   */
-    width: 800px;
-
     display: flex;
     flex-direction: row;
     align-items: flex-start;
