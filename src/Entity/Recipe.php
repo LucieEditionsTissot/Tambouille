@@ -41,8 +41,6 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'recipes')]
     private Collection $equipements;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: IngredientQuantity::class)]
-    private Collection $ingredients;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: PreparationStep::class)]
     private Collection $steps;
@@ -57,13 +55,16 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredient::class)]
+    private Collection $ingredients;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
-        $this->ingredients = new ArrayCollection();
         $this->steps = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,35 +180,6 @@ class Recipe
         return $this;
     }
 
-    /**
-     * @return Collection<int, IngredientQuantity>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(IngredientQuantity $ingredient): self
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(IngredientQuantity $ingredient): self
-    {
-        if ($this->ingredients->removeElement($ingredient)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredient->getRecipe() === $this) {
-                $ingredient->setRecipe(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, PreparationStep>
@@ -305,6 +277,36 @@ class Recipe
             // set the owning side to null (unless already changed)
             if ($review->getRecipe() === $this) {
                 $review->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+            $ingredient->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): self
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getRecipe() === $this) {
+                $ingredient->setRecipe(null);
             }
         }
 

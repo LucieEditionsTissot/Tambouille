@@ -3,24 +3,17 @@
 namespace App\Form;
 
 use App\Entity\Equipement;
-use App\Entity\Ingredient;
 use App\Entity\PreparationStep;
 use App\Entity\Recipe;
 use App\Entity\RecipeType;
-use App\Entity\User;
-use App\Transformer\EquipementTransformer;
-use App\Transformer\RecipeTypeTransformer;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -69,12 +62,19 @@ class RecipeFormType extends AbstractType
             ->add('author')
             ->add('ingredients', CollectionType::class, [
                 'entry_type' => IngredientFormType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'class' => 'ingredient-row'
+                    ]
+                ],
                 'allow_add' => true,
-                'by_reference' => false,
-                'label' => 'Ingrédients',
-                'prototype' => '{{ form_widget(form.prototype) }}',
-                'prototype_data' => new Ingredient(),
+                'allow_delete' => true,
+                'prototype' => true,
+                'prototype_name' => '__ingredient__',
+                'attr' => [
+                    'class' => 'ingredient-collection'
+                ],
             ])
             ->add('steps', CollectionType::class, [
                 'entry_type' => PreparationStepType::class,

@@ -6,61 +6,86 @@
 
 {% block contentBody %}
     {% block body %}
-        <h1>Ajouter une recette</h1>
         {{ form_start(form) }}
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.cookingTime) }}
-        {{ form_row(form.image) }}
-        {{ form_row(form.recipeType) }}
-        {{ form_row(form.nbPersons) }}
-        {{ form_row(form.author) }}
-        <h2>Ingrédients</h2>
-        {{ form_widget(form.ingredients) }}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-ingredient-modal">
-            Ajouter un ingrédient
-        </button>
-        <h2>Étapes de préparation</h2>
-        {{ form_widget(form.steps) }}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStepModal">
-            Ajouter une étape de préparation
-        </button>
-        <h2>Équipements</h2>
-        {{ form_widget(form.equipements) }}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEquipementModal">
-            Ajouter un équipement
-        </button>
-        {{ form_row(form.submit) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.cookingTime) }}
+            {{ form_widget(form.cookingTime, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.cookingTime) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.image) }}
+            {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+            {{ form_errors(form.image) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.recipeType) }}
+            {{ form_widget(form.recipeType, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.recipeType) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.nbPersons) }}
+            {{ form_widget(form.nbPersons, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nbPersons) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.author) }}
+            {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.author) }}
+        </div>
+        <div class="form-group">
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ingredientModal"
+               data-url="{{ path('ingredient_create_modal') }}">Add Ingredient</a>
+            {{ form_row(form.ingredients) }}
+            <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog"
+                 aria-labelledby="ingredientModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ingredientModalLabel">Add Ingredient</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% include 'ingredient/ingredientForm.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.steps) }}
+            {{ form_widget(form.steps, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.steps) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.equipements) }}
+            {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.equipements) }}
+        </div>
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
         {{ form_end(form) }}
-
-        {% include 'recipe/_modal_add_ingredient.html.twig' %}
-        {% include 'recipe/_modal_add_step.html.twig' %}
-        {% include 'recipe/_modal_add_equipement.html.twig' %}
     {% endblock %}
     <button type="submit">Ajouter la recette</button>
-{% block javascripts %}
-
-    <script>
-        // Au clic sur le bouton pour ajouter un ingrédient, une étape de préparation ou un équipement
-        $('.add-item-button').on('click', function (e) {
-            e.preventDefault();
-
-            // On récupère l'URL pour afficher le formulaire
-            var url = $(this).attr('href');
-
-            // On fait une requête AJAX pour récupérer le formulaire
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (data) {
-                    // On affiche le formulaire dans la modal
-                    $('#modal-content').html(data);
-                    $('#modal').modal('show');
-                }
+    {% block javascripts %}
+        <script>
+            $(document).ready(function () {
+                $('#ingredientModal').on('show.bs.modal', function (e) {
+                    var url = $(e.relatedTarget).data('url');
+                    $(this).find('.modal-body').load(url);
+                });
             });
-        });
-    </script>
-
+        </script>
     {% endblock %}
-    {{ form_end(form) }}
 {% endblock %}

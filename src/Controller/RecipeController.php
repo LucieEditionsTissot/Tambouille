@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Group;
 use App\Entity\Image;
 use App\Entity\Ingredient;
+use App\Entity\Post;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\IngredientFormType;

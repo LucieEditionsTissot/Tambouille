@@ -18,18 +18,23 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    private ?IngredientFamily $ingredientFamily = null;
-
-    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientQuantity::class)]
-    private Collection $ingredientQuantities;
-
     #[ORM\ManyToMany(targetEntity: PreparationStep::class, mappedBy: 'ingredients')]
     private Collection $preparationSteps;
 
+    #[ORM\Column(length: 255)]
+    private ?string $ingredientType = null;
+
+    #[ORM\Column]
+    private ?int $ingredientQuantity = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ingredientVolume = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    private ?Recipe $recipe = null;
+
     public function __construct()
     {
-        $this->ingredientQuantities = new ArrayCollection();
         $this->preparationSteps = new ArrayCollection();
     }
 
@@ -62,35 +67,7 @@ class Ingredient
         return $this;
     }
 
-    /**
-     * @return Collection<int, IngredientQuantity>
-     */
-    public function getIngredientQuantities(): Collection
-    {
-        return $this->ingredientQuantities;
-    }
-
-    public function addIngredientQuantity(IngredientQuantity $ingredientQuantity): self
-    {
-        if (!$this->ingredientQuantities->contains($ingredientQuantity)) {
-            $this->ingredientQuantities->add($ingredientQuantity);
-            $ingredientQuantity->setIngredient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredientQuantity(IngredientQuantity $ingredientQuantity): self
-    {
-        if ($this->ingredientQuantities->removeElement($ingredientQuantity)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredientQuantity->getIngredient() === $this) {
-                $ingredientQuantity->setIngredient(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, PreparationStep>
@@ -115,6 +92,54 @@ class Ingredient
         if ($this->preparationSteps->removeElement($preparationStep)) {
             $preparationStep->removeIngredient($this);
         }
+
+        return $this;
+    }
+
+    public function getIngredientType(): ?string
+    {
+        return $this->ingredientType;
+    }
+
+    public function setIngredientType(string $ingredientType): self
+    {
+        $this->ingredientType = $ingredientType;
+
+        return $this;
+    }
+
+    public function getIngredientQuantity(): ?int
+    {
+        return $this->ingredientQuantity;
+    }
+
+    public function setIngredientQuantity(int $ingredientQuantity): self
+    {
+        $this->ingredientQuantity = $ingredientQuantity;
+
+        return $this;
+    }
+
+    public function getIngredientVolume(): ?string
+    {
+        return $this->ingredientVolume;
+    }
+
+    public function setIngredientVolume(string $ingredientVolume): self
+    {
+        $this->ingredientVolume = $ingredientVolume;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
 
         return $this;
     }
