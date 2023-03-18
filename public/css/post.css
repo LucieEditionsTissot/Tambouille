@@ -1,8 +1,6 @@
 .post-container{
     border: 1px solid var(--beige);
     border-radius: 5px;
-/* TEMPORARY   */
-    width: 800px;
 }
 
 .title-container{

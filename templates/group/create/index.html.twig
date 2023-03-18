@@ -20,12 +20,12 @@
     <p style="font-weight: 600" class="mb-1 mt-5">Inviter vos proches</p>
     <p>Pour inviter vos proches, partagez ce code avec eux pour qu'ils puissent rejoindre votre groupe.</p>
     {{ form_row(groupForm.code) }}
-    {{ form_end(groupForm) }}
-
     <div class="d-flex justify-content-end">
         <button type="submit" class="btn" style="background-color: #E6A203; border-radius: 10px; width: fit-content">
             Créer
         </button>
     </div>
+    {{ form_end(groupForm) }}
+
 </div>
 {% endblock %}
