@@ -8,7 +8,7 @@
 
         <div class="d-flex">
             {% if user.image %}
-                <img src="{{ asset('uploads/images/' ~ post.image) }}">
+                <img style="border-radius: 25px; height: 44px; width: 44px" src="{{ asset('uploads/images/' ~ user.image) }}">
             {% else %}
                 <div style="background-color: #E6A203; border-radius: 25px; height: 44px; width: 44px" class="d-flex justify-content-center align-items-center">
                     {{ user.username|first }}
