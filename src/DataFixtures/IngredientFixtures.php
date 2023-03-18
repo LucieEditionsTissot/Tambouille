@@ -8,6 +8,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class IngredientFixtures extends Fixture
 {
+    public const INGREDIENT_REFERENCE = 'ingredient1';
+    public const INGREDIENT2_REFERENCE = 'ingredient2';
+    public const INGREDIENT3_REFERENCE = 'ingredient3';
+    public const INGREDIENT4_REFERENCE = 'ingredient4';
+    
     public function load(ObjectManager $manager)
     {
         $ingredient1 = new Ingredient();
@@ -32,5 +37,9 @@ class IngredientFixtures extends Fixture
         $manager->persist($ingredient5);
 
         $manager->flush();
+        $this->addReference(self::INGREDIENT_REFERENCE , $ingredient1);
+        $this->addReference(self::INGREDIENT2_REFERENCE, $ingredient2);
+        $this->addReference(self::INGREDIENT3_REFERENCE, $ingredient3);
+        $this->addReference(self::INGREDIENT4_REFERENCE, $ingredient4);
     }
 }
