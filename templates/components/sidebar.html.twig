@@ -1,63 +1,103 @@
 
-<div class="d-flex flex-column p-3" style="background-color: rgba(229,221, 205,50%); height: 100vh">
-    <a href="{{ path('app_feed') }}">Home</a>
-    <hr>
-
-    <a href="{{ path('app_user_profile') }}">{{ user.username }}</a>
-
-    <hr>
-
-    {% if groups|length > 0 %}
-        Liste de mes groupes :
-        {% for group in groups %}
-                <li>
-                    <a href="{{ path('select_group', { 'id': group.id })  }}">
-                        <span >{{ group.name }}</span>
-                    </a>
-                    <span> --- </span>
-                    <a href="{{ path('profile_group', { 'id': group.id })  }}">
-                        <span>go to profile</span>
-                    </a>
-                </li>
-
-        {% endfor %}
-    {% else %}
-        Vous n’appartenez à aucun groupe
-    {% endif %}
-
-        <div>
-            <a href="{{ path('create_group') }}">
-            <button>
-                Créer un groupe
-            </button>
-            </a>
-            <a href="{{ path('join_group') }}">
-            <button>
-                Rejoindre un groupe
-            </button>
-            </a>
-        </div>
-
-    <hr>
+<div class="d-flex flex-column p-3" style="background-color: rgba(229,221, 205,50%);height: 100vh">
+    <div style="position: sticky; top: 1rem;">
         <a href="{{ path('app_feed') }}">
-            <button>
-                Fil d'actualité
+            home
+        </a>
+        <hr>
+
+        <div class="d-flex">
+            {% if user.image %}
+                {{ user.image }}
+            {% else %}
+                <div style="background-color: #E6A203; border-radius: 25px; height: 44px; width: 44px" class="d-flex justify-content-center align-items-center">
+                    {{ user.username|first }}
+                </div>
+            {% endif %}
+            <div class="d-flex flex-column">
+                <a href="{{ path('app_user_profile') }}" class="ml-1">
+                    <p class="mb-1">{{ user.username }}</p>
+                    Mon profil
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        {% if groups|length > 0 %}
+            Liste de mes groupes :
+            {% for group in groups %}
+                    <li>
+                        <img src="{{ asset('assets/icons/people.svg') }}">
+                        <a href="{{ path('select_group', { 'id': group.id })  }}">
+                            <span >{{ group.name }}</span>
+                        </a>
+                        <span> --- </span>
+                        <a href="{{ path('profile_group', { 'id': group.id })  }}">
+                            <img src="{{ asset('assets/icons/setting-group.svg') }}">
+                        </a>
+                    </li>
+
+            {% endfor %}
+        {% else %}
+            <p>Vous n’appartenez à aucun groupe</p>
+        {% endif %}
+
+            <div class="d-flex flex-column">
+                <a href="{{ path('create_group') }}">
+                <button class="btn mb-2" style="background-color: #E6A203; border-radius: 10px; color:white">
+                    <span>+</span>
+                    Créer un groupe
+                </button>
+                </a>
+                <a href="{{ path('join_group') }}">
+                <button class="btn" style="background-color: #E6A203; border-radius: 10px; color:white">
+                    <img src="{{ asset('assets/icons/people.svg') }}">
+                    Rejoindre un groupe
+                </button>
+                </a>
+            </div>
+
+        {% if groups|length > 0 %}
+            <hr>
+            <div class="d-flex flex-column">
+                <a href="{{ path('app_feed') }}">
+                    <button class="btn">
+                        <img src="{{ asset('assets/icons/messages.svg') }}">
+                        Fil d'actualité
+                    </button>
+                </a>
+
+                <a href="{{ path('app_cooking_book') }}">
+                    <button class="btn">
+                        <img src="{{ asset('assets/icons/book.svg') }}">
+                        Livre de recette
+                    </button>
+                </a>
+
+                <a>
+                    <button class="btn">
+                        <img src="{{ asset('assets/icons/calendar.svg') }}">
+                        Calendrier
+                    </button>
+                </a>
+            </div>
+            <hr>
+        {% endif %}
+        <a href="{{ path('app_logout') }}">
+            <button class="btn position-fixed" style="border:none; bottom: 2rem">
+                <img src="{{ asset('assets/icons/logout.svg') }}">
+                Se deconnecter
             </button>
         </a>
-
-            <a href="{{ path('app_cooking_book') }}">
-        <button>
-            Livre de recette
-        </button>
-            </a>
-
-        <button>
-            Calendrier
-        </button>
-    <hr>
-    <a href="{{ path('app_logout') }}">
-        <button>
-            Se deconnecter
-        </button>
-    </a>
+    </div>
 </div>
+
+<style>
+    a {
+        color:black;
+    }
+    a:hover {
+        color: black;
+        text-decoration: none;
+    }
+</style>
