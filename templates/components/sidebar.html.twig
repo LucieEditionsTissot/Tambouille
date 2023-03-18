@@ -1,5 +1,5 @@
 
-<div class="d-flex flex-column p-3" style="background-color: rgba(229,221, 205,50%);height: 100vh">
+<div class="d-flex flex-column p-3">
     <div style="position: sticky; top: 1rem;">
         <a href="{{ path('app_feed') }}">
             <img src="{{ asset('assets/logo_tambouille.png') }}">
@@ -26,30 +26,32 @@
         {% if groups|length > 0 %}
             Liste de mes groupes :
             {% for group in groups %}
-                    <li class="d-flex justify-content-between mb-1 mt-2">
+                {% if app.session.get('groupId') == group.id %}
+                    <li class="d-flex justify-content-between mb-1 mt-2 p-1" style="background-color:rgba(229,221, 205,50%); border-radius: 5px">
+                {% else %}
+                        <li class="d-flex justify-content-between mb-1 mt-2 p-1">
+                {% endif %}
                         <div>
-                        <img src="{{ asset('assets/icons/people-black.svg') }}">
-                        <a href="{{ path('select_group', { 'id': group.id })  }}">
-                            <span >{{ group.name }}</span>
-                        </a>
+                            <img src="{{ asset('assets/icons/people-black.svg') }}">
+                            <a href="{{ path('select_group', { 'id': group.id })  }}">
+                                <span >{{ group.name }}</span>
+                            </a>
                         </div>
                         <a href="{{ path('profile_group', { 'id': group.id })  }}">
                             <img src="{{ asset('assets/icons/setting-group.svg') }}">
                         </a>
                     </li>
-
-                <div class="d-flex flex-column">
-                    <a href="{{ path('create_group') }}" class="mb-2 mt-1">
-                        <img src="{{ asset('assets/icons/add.svg') }}">
-                        Créer un groupe
-                    </a>
-                    <a href="{{ path('join_group') }}" class="">
-                        <img src="{{ asset('assets/icons/add.svg') }}">
-                        Rejoindre un groupe
-                    </a>
-                </div>
-
             {% endfor %}
+            <div class="d-flex flex-column">
+                <a href="{{ path('create_group') }}" class="mb-2 mt-1">
+                    <img src="{{ asset('assets/icons/add.svg') }}">
+                    Créer un groupe
+                </a>
+                <a href="{{ path('join_group') }}" class="">
+                    <img src="{{ asset('assets/icons/add.svg') }}">
+                    Rejoindre un groupe
+                </a>
+            </div>
         {% else %}
             <p>Vous n’appartenez à aucun groupe</p>
 
