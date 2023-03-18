@@ -2,13 +2,13 @@
 <div class="d-flex flex-column p-3" style="background-color: rgba(229,221, 205,50%);height: 100vh">
     <div style="position: sticky; top: 1rem;">
         <a href="{{ path('app_feed') }}">
-            home
+            <img src="{{ asset('assets/logo_tambouille.png') }}">
         </a>
         <hr>
 
         <div class="d-flex">
             {% if user.image %}
-                {{ user.image }}
+                <img src="{{ asset('uploads/images/' ~ post.image) }}">
             {% else %}
                 <div style="background-color: #E6A203; border-radius: 25px; height: 44px; width: 44px" class="d-flex justify-content-center align-items-center">
                     {{ user.username|first }}
@@ -26,21 +26,33 @@
         {% if groups|length > 0 %}
             Liste de mes groupes :
             {% for group in groups %}
-                    <li>
-                        <img src="{{ asset('assets/icons/people.svg') }}">
+                    <li class="d-flex justify-content-between mb-1 mt-2">
+                        <div>
+                        <img src="{{ asset('assets/icons/people-black.svg') }}">
                         <a href="{{ path('select_group', { 'id': group.id })  }}">
                             <span >{{ group.name }}</span>
                         </a>
-                        <span> --- </span>
+                        </div>
                         <a href="{{ path('profile_group', { 'id': group.id })  }}">
                             <img src="{{ asset('assets/icons/setting-group.svg') }}">
                         </a>
                     </li>
 
+                <div class="d-flex flex-column">
+                    <a href="{{ path('create_group') }}" class="mb-2 mt-1">
+                        <img src="{{ asset('assets/icons/add.svg') }}">
+                        Créer un groupe
+                    </a>
+                    <a href="{{ path('join_group') }}" class="">
+                        <img src="{{ asset('assets/icons/add.svg') }}">
+                        Rejoindre un groupe
+                    </a>
+                </div>
+
             {% endfor %}
         {% else %}
             <p>Vous n’appartenez à aucun groupe</p>
-        {% endif %}
+
 
             <div class="d-flex flex-column">
                 <a href="{{ path('create_group') }}">
@@ -56,7 +68,7 @@
                 </button>
                 </a>
             </div>
-
+        {% endif %}
         {% if groups|length > 0 %}
             <hr>
             <div class="d-flex flex-column">
