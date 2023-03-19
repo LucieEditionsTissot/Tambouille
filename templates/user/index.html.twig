@@ -5,6 +5,10 @@
         <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     {% endblock %}
 
+    {% block customStylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    {% endblock %}
+
 
     {% block contentHeader %}
         <h1 class="pl-3" style="font-weight: bold">Profil de {{ user.username }}</h1>
