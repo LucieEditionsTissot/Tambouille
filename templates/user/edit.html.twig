@@ -1,4 +1,5 @@
 {% extends 'components/layout.html.twig' %}
+
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block customStylesheets %}
@@ -13,6 +14,7 @@
 
 {% block contentBody %}
     <div class="p-4">
+
         {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.email) }}
