@@ -68,7 +68,7 @@ Pour cette première utilisation, j'ai pris le soin de vous créer un compte uti
 Tout d'abord, bienvenue à vous **Ryan Gosling**, vous accéderez à votre profil avec votre adresse mail : **ryan.gosling@love.com** et nos équipes ont pris le soin de vous créez un mot de passe sur mesure : **1mot2passeSTP**.
 Une fois connecté prenez la liberté d'explorer les différentes possibilités que nous pouvons retrouver sur notre site, bien qu'il soit encore en construction. Vous pouvez 'aller **voir les membres de votre famille déjà présent dans votre groupe** ou de **commenter les posts publiés par les autres utilisateurs.**
 Vous aurez aussi la possibilité d'**accéder au livre de recette** afin d'**ajouter** vous aussi une nouvelle page à cette belle histoire culinaire.
-Nous vou souhaitons un agréable séjour auprès de **Tambouille** et espérons vous revoir pour notre V3.
+Nous vous souhaitons un agréable séjour auprès de **Tambouille** et espérons vous revoir pour notre V3.
 
 ## Et la prod ?
 #### **Work in progresss...**
