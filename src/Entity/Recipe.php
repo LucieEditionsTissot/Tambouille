@@ -48,21 +48,16 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
-    #[ORM\Column]
-    private ?int $ingredientQuantity = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $ingredientVolume = null;
-
-
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredient::class)]
-    private Collection $ingredients;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Equipement::class)]
     private Collection $equipements;
 
     #[ORM\ManyToMany(targetEntity: PreparationStep::class, inversedBy: 'recipes')]
     private Collection $preparationStep;
+
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
+    private Collection $ingredients;
+
 
     public function __construct()
     {
@@ -233,62 +228,6 @@ class Recipe
 
         return $this;
     }
-
-    public function getIngredientQuantity(): ?int
-    {
-        return $this->ingredientQuantity;
-    }
-
-    public function setIngredientQuantity(int $ingredientQuantity): self
-    {
-        $this->ingredientQuantity = $ingredientQuantity;
-
-        return $this;
-    }
-
-    public function getIngredientVolume(): ?string
-    {
-        return $this->ingredientVolume;
-    }
-
-    public function setIngredientVolume(string $ingredientVolume): self
-    {
-        $this->ingredientVolume = $ingredientVolume;
-
-        return $this;
-    }
-    
-
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): self
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredient $ingredient): self
-    {
-        if ($this->ingredients->removeElement($ingredient)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredient->getRecipe() === $this) {
-                $ingredient->setRecipe(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Equipement>
      */
@@ -342,5 +281,30 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): self
+    {
+        $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
 
 }

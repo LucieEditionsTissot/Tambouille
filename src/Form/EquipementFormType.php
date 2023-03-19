@@ -20,13 +20,7 @@ class EquipementFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ])
-            ->add('isNeeded', CheckboxType::class, [
-                'label' => 'Nécessaire ?',
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-check-input'
-                ]
+
             ]);
     }
 

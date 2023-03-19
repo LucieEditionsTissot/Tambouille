@@ -13,7 +13,8 @@ class PreparationStepType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('step', TextareaType::class, [
+            ->add('description', TextareaType::class, [
+
                 'label' => 'Step',
                 'attr' => [
                     'class' => 'form-control'
