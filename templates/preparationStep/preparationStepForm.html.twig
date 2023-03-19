@@ -1,18 +1,25 @@
 {% extends 'components/layout.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
 
 {% block contentHeader %}
     Ajouter une étape de préparation
 {% endblock %}
 
-{% block body %}
+{% block contentBody %}
 
-{{ form_start(form) }}
+    {{ form_start(form) }}
 
-<div class="form-group">
-    {{ form_label(form.description) }}
-    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-</div>
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control form-input-style'}}) }}
+        <button type="submit" class="form-submit btn mt-3">Ajouter</button>
+        <a href="{{ path('recipe_add') }}" class="btn btn-danger mt-3" style="border-radius: 10px">Annuler</a>
+    </div>
 
 
-{{ form_end(form) }}
+    {{ form_end(form) }}
 {% endblock %}
