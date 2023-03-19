@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Group;
 use App\Entity\Image;
 use App\Entity\Ingredient;
+use App\Entity\IngredientQuantity;
 use App\Entity\Post;
 use App\Entity\Recipe;
 use App\Entity\User;
@@ -137,14 +138,16 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'show')]
-    public function showRecipe(Recipe $recipe): Response
+    public function showRecipe(Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
         $reviews = $recipe->getReviews();
         $posts = $this->getPostsByRecipe($recipe);
+        $ingredients = $this->getIngredientsQuantity($recipe, $entityManager);
         return $this->render('recipe/show.html.twig', [
             'recipes' => $recipe,
             'reviews' => $reviews,
-            'posts' => $posts
+            'posts' => $posts,
+            'quantity' => $ingredients
         ]);
     }
 
@@ -154,6 +157,12 @@ class RecipeController extends AbstractController
             return $p->getParent() == null;
         });
         return $posts;
+    }
+    private function getIngredientsQuantity(Recipe $recipe, EntityManagerInterface $entityManager){
+        $quantity = $entityManager->getRepository(IngredientQuantity::class)->findBy(
+            array('recipe' => $recipe)
+        );
+        return $quantity;
     }
 
     #[Route('/{id}/delete', name: 'delete')]
