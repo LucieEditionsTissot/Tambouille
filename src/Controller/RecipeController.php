@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipement;
 use App\Entity\Group;
 use App\Entity\Image;
 use App\Entity\Ingredient;
 use App\Entity\IngredientQuantity;
 use App\Entity\Post;
+use App\Entity\PreparationStep;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\IngredientFormType;
@@ -43,14 +45,20 @@ class RecipeController extends AbstractController
         $group = $this->getGroupById($entityManager, $groupId);
         $recipe->setGroupId($group);
         $user = $this->getUser();
+
         if ($user instanceof User) {
             $recipe->setAuthor($user);
         }
         $form = $this->createForm(RecipeFormType::class, $recipe);
+        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
+        $ingredients = $ingredientRepository->findAll();
+        $equipementRepository = $entityManager->getRepository(Equipement::class);
+        $equipements = $equipementRepository->findAll();
+        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
+        $preparationSteps = $preparationStepRepository->findAll();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entityManager->getRepository(Recipe::class);
             $imageFile = $form->get('image')->getData();
 
@@ -82,6 +90,9 @@ class RecipeController extends AbstractController
         }
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
+            'ingredients' => $ingredients,
+            'equipements' => $equipements,
+            'preparationSteps' => $preparationSteps,
         ]);
     }
 

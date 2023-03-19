@@ -28,20 +28,15 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
 
 
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT_REFERENCE));
-        $recipe->setIngredientQuantity(600);
-        $recipe->setIngredientVolume("g");
+
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-        $recipe->setIngredientQuantity(200);
-        $recipe->setIngredientVolume("g");
+
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-        $recipe->setIngredientQuantity(150);
-        $recipe->setIngredientVolume("g");
+
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-        $recipe->setIngredientQuantity(300);
-        $recipe->setIngredientVolume("g");
+
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
-        $recipe->setIngredientQuantity(500);
-        $recipe->setIngredientVolume("g");
+
         $recipe->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT_REFERENCE));
         $recipe->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT2_REFERENCE));
         $recipe->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT3_REFERENCE));
@@ -65,20 +60,15 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $recipe2->setNbPersons(4);
 
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT_REFERENCE));
-        $recipe2->setIngredientQuantity(200);
-        $recipe2->setIngredientVolume("g");
+
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-        $recipe2->setIngredientQuantity(400);
-        $recipe2->setIngredientVolume("g");
+
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-        $recipe2->setIngredientQuantity(100);
-        $recipe2->setIngredientVolume("g");
+
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-        $recipe2->setIngredientQuantity(30);
-        $recipe2->setIngredientVolume("g");
+
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
-        $recipe2->setIngredientQuantity(400);
-        $recipe2->setIngredientVolume("g");
+
 
 
 
@@ -104,20 +94,14 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $recipe3->setCookingTime(30);
         $recipe3->setNbPersons(4);
 
-        $recipe3->setIngredientQuantity(300);
-        $recipe3->setIngredientVolume("g");
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-        $recipe3->setIngredientQuantity(200);
-        $recipe3->setIngredientVolume("g");
+
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-        $recipe3->setIngredientQuantity(500);
-        $recipe3->setIngredientVolume("g");
+
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-        $recipe3->setIngredientQuantity(600);
-        $recipe3->setIngredientVolume("g");
+
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
-        $recipe3->setIngredientQuantity(200);
-        $recipe3->setIngredientVolume("g");
+
 
         $recipe3->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT_REFERENCE));
         $recipe3->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT2_REFERENCE));
@@ -145,6 +129,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GroupFixtures::class,
+            IngredientFixtures::class,
             PreparationStepFixtures::class,
         ];
     }

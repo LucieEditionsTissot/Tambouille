@@ -76,8 +76,6 @@ class RecipeFormType extends AbstractType
                 'prototype' => true,
                 'prototype_name' => '__ingredient_name__',
             ])
-            ->add('ingredientQuantity', TextType::class)
-            ->add('ingredientVolume', TextType::class)
             ->add('preparationStep', CollectionType::class, [
                 'entry_type' => PreparationStepType::class,
                 'allow_add' => true,

@@ -1,7 +1,8 @@
+{% extends 'components/layout.html.twig' %}
+
 {% block contentHeader %}
     Ajouter un ingrédient
 {% endblock %}
-
 {% block contentBody %}
     {% block body %}
         {{ form_start(form) }}
@@ -10,11 +11,6 @@
             {{ form_label(form.name) }}
             {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.name) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.ingredientType) }}
-            {{ form_widget(form.ingredientType, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.ingredientType) }}
         </div>
         <div class="form-group">
             {{ form_label(form.ingredientQuantity) }}
@@ -27,6 +23,7 @@
             {{ form_errors(form.ingredientVolume) }}
         </div>
         <button type="submit">Ajouter</button>
+        <a href="{{ path('recipe_add') }}" class="btn btn-secondary">Annuler</a>
         {{ form_end(form) }}
     {% endblock %}
 {% endblock %}
