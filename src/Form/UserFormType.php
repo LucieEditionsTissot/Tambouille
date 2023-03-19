@@ -22,12 +22,18 @@ class UserFormType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur',
+                'attr'=> ['class'=> 'form-input-style']
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Adresse email',
+                'attr'=> ['class'=> 'form-input-style']
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
+                'attr'=> [
+                    'class'=> 'form-input-style',
+                    'style' => 'width:fit-content'
+                    ],
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -43,6 +49,7 @@ class UserFormType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
                 'required' => false,
+                'attr'=> ['class'=> 'form-input-style']
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -50,13 +57,18 @@ class UserFormType extends AbstractType
                 'required' => false,
                 'first_options' => [
                     'label' => 'Nouveau mot de passe',
+                    'attr'=> ['class'=> 'form-input-style']
                 ],
                 'second_options' => [
                     'label' => 'Confirmer le nouveau mot de passe',
+                    'attr'=> ['class'=> 'form-input-style']
                 ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'form-submit btn'
+                ]
             ]);
     }
 
