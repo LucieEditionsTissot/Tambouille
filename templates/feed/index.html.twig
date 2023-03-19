@@ -1,0 +1,44 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/feed.css') }}">
+{% endblock %}
+
+
+    {% block contentHeader %}
+        {% if hasGroup %}
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="pl-3" style="font-weight: bold">Fil d'actualité</h1>
+                <a href="{{ path('publish_post') }}">
+                    <button class="btn form-submit">Publier</button>
+                </a>
+            </div>
+
+        {% endif %}
+
+    {% endblock %}
+
+    {% block contentBody %}
+
+        {% if hasGroup  %}
+            <div class="d-flex flex-column gap">
+                {% for post in posts %}
+
+                    {% if post.type ==  1  %} {#    POST_TYPE_NOTIFICATION#}
+                        {{ component('post_notification', {
+                            post: post,
+                        }) }}
+                    {% else %}
+                        {{ component('post', {
+                            post: post,
+                        }) }}
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        {% endif %}
+    {% endblock %}
+

@@ -1,4 +1,4 @@
-/.idea
+.idea
 students_gobelins.key
 ###> symfony/framework-bundle ###
 /.env.local
@@ -9,9 +9,9 @@ students_gobelins.key
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
+/public/uploads
 ###> phpunit/phpunit ###
-/phpunit.xml
+/phpunit.xmlgit 
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 

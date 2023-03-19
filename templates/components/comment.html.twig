@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="{{ asset('css/comment.css') }}">
+
+
+<div class="comment-container">
+{# pp ?   #}
+    <div class="comment-text">
+        <div class="comment-text-title">
+            <div class="comment-text-title-label">
+                {{ comment.author.username }} <span style="color: var(--light-gray)"> a commenté</span>
+            </div>
+            <div>
+                {% if app.user.id is same as comment.author.id %}
+                    <form method="post" action="{{ path('delete_comment') }}" autoComplete="off">
+                        <input hidden name="commentId" value="{{ comment.id }}" />
+                        <button type="submit" class="nobutton" style="color: var(--carrot)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="comment-content">{{ comment.content }}</div>
+
+    <div class="comment-date">
+        {{ comment.createdAt|date("m/d/Y") }}
+    </div>
+
+</div>

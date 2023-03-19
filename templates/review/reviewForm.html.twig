@@ -1,0 +1,34 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block contentHeader %}
+    <h1 class="pl-3" style="font-weight: bold">
+        Ajouter une critique
+    </h1>
+{% endblock %}
+
+{% block contentBody %}
+
+
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.comment, 'Commentaire') }}
+        {{ form_widget(form.comment, { 'attr': {'class': 'form-control form-input-style'} }) }}
+
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.rating, 'Note sur 10 étoiles') }}
+        {{ form_widget(form.rating, { 'attr': {'class': 'form-control form-input-style'} }) }}
+    </div>
+
+    <button type="submit" class="btn form-submit">Ajouter</button>
+
+    {{ form_end(form) }}
+{% endblock %}
