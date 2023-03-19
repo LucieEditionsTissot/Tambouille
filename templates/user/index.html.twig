@@ -12,7 +12,13 @@
         <div>
             <h2>Mes infos</h2>
 
-
+            {% if user.image %}
+            <img style="border-radius: 50px;height: 104px; width: 104px" src="{{ asset('uploads/images/' ~ user.image) }}" alt="Ma photo">
+            {% else %}
+                <div style="background-color: #E6A203; border-radius: 25px; height: 44px; width: 44px" class="d-flex justify-content-center align-items-center">
+                    {{ user.username|first }}
+                </div>
+            {% endif %}
             <p>Nom d'utilisateur : {{ user.username }}</p>
             <p>Adresse email : {{ user.email }}</p>
             <p>Téléphone : {{ user.phone }}</p>

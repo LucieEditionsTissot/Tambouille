@@ -27,9 +27,13 @@ class PreparationStep
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'preparationSteps')]
     private Collection $ingredients;
 
+    #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'preparationStep')]
+    private Collection $recipes;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +97,33 @@ class PreparationStep
     public function removeIngredient(Ingredient $ingredient): self
     {
         $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->addPreparationStep($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removePreparationStep($this);
+        }
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -69,6 +70,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('u')
             ->getQuery()
             ->getResult();
+    }
+
+    private function findEmails(ObjectManager $manager): array
+    {
+        $emails = [];
+
+        $users = $manager->getRepository(User::class)->findAll();
+
+        foreach ($users as $user) {
+            $emails[] = $user->getEmail();
+        }
+
+        return $emails;
     }
 
 //    /**

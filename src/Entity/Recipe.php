@@ -25,8 +25,8 @@ class Recipe
     #[ORM\Column]
     private ?int $cookingTime = null;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $images = [];
+    #[ORM\Column(length: 255)]
+    private ?string $images = null;
 
     #[ORM\Column]
     private ?int $nbPersons = null;
@@ -54,8 +54,6 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $ingredientVolume = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $preparationStep = null;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredient::class)]
     private Collection $ingredients;
@@ -63,12 +61,16 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Equipement::class)]
     private Collection $equipements;
 
+    #[ORM\ManyToMany(targetEntity: PreparationStep::class, inversedBy: 'recipes')]
+    private Collection $preparationStep;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->equipements = new ArrayCollection();
+        $this->preparationStep = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,12 +114,12 @@ class Recipe
         return $this;
     }
 
-    public function getImages(): array
+    public function getImages(): ?string
     {
         return $this->images;
     }
 
-    public function setImages(array $images): self
+    public function setImages(?string $images): self
     {
         $this->images = $images;
 
@@ -255,18 +257,7 @@ class Recipe
 
         return $this;
     }
-
-    public function getPreparationStep(): ?string
-    {
-        return $this->preparationStep;
-    }
-
-    public function setPreparationStep(string $preparationStep): self
-    {
-        $this->preparationStep = $preparationStep;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Ingredient>
@@ -324,6 +315,30 @@ class Recipe
                 $equipement->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PreparationStep>
+     */
+    public function getPreparationStep(): Collection
+    {
+        return $this->preparationStep;
+    }
+
+    public function addPreparationStep(PreparationStep $preparationStep): self
+    {
+        if (!$this->preparationStep->contains($preparationStep)) {
+            $this->preparationStep->add($preparationStep);
+        }
+
+        return $this;
+    }
+
+    public function removePreparationStep(PreparationStep $preparationStep): self
+    {
+        $this->preparationStep->removeElement($preparationStep);
 
         return $this;
     }
