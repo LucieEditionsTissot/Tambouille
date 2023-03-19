@@ -112,6 +112,13 @@ class RecipeController extends AbstractController
     public function editRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, int $id): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
+        $ingredients = $ingredientRepository->findAll();
+        $equipementRepository = $entityManager->getRepository(Equipement::class);
+        $equipements = $equipementRepository->findAll();
+        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
+        $preparationSteps = $preparationStepRepository->findAll();
+
 
         if (!$recipe) {
             throw $this->createNotFoundException('Recipe not found');
@@ -147,6 +154,9 @@ class RecipeController extends AbstractController
 
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
+            'ingredients' => $ingredients,
+            'equipements' => $equipements,
+            'preparationSteps' => $preparationSteps,
         ]);
     }
 
