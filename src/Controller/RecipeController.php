@@ -59,6 +59,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->getRepository(Recipe::class);
             $imageFile = $form->get('image')->getData();
 
@@ -93,6 +94,7 @@ class RecipeController extends AbstractController
             'ingredients' => $ingredients,
             'equipements' => $equipements,
             'preparationSteps' => $preparationSteps,
+
         ]);
     }
 
@@ -159,6 +161,7 @@ class RecipeController extends AbstractController
             'reviews' => $reviews,
             'posts' => $posts,
             'quantity' => $ingredients
+
         ]);
     }
 
@@ -175,6 +178,7 @@ class RecipeController extends AbstractController
         );
         return $quantity;
     }
+
 
     #[Route('/{id}/delete', name: 'delete')]
     public function deleteRecipe(Request $request, EntityManagerInterface $entityManager, int $id): Response

@@ -17,7 +17,6 @@ class Ingredient
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
     #[ORM\Column]
     private ?int $ingredientQuantity = null;
 
@@ -62,6 +61,7 @@ class Ingredient
         return $this;
     }
 
+
     public function getIngredientVolume(): ?string
     {
         return $this->ingredientVolume;
@@ -102,5 +102,9 @@ class Ingredient
         }
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }

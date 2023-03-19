@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ingredient;
 use App\Form\IngredientFormType;
+
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,9 +28,11 @@ class IngredientController extends AbstractController
             $entityManager->persist($ingredient);
             $entityManager->flush();
 
+
             return $this->redirectToRoute('recipe_add');
         }
         return $this->render('ingredient/ingredientForm.html.twig', [
+
             'form' => $form->createView(),
         ]);
     }

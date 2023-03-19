@@ -37,6 +37,7 @@ class IngredientFixtures extends Fixture
         $ingredient5->setName('Fenouil');
         $ingredient5->setIngredientQuantity(500);
         $ingredient5->setIngredientVolume("g");
+
         $manager->persist($ingredient1);
         $manager->persist($ingredient2);
         $manager->persist($ingredient3);

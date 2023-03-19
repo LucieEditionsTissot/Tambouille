@@ -3,6 +3,7 @@
 {% block contentHeader %}
     Ajouter un ingrédient
 {% endblock %}
+
 {% block contentBody %}
     {% block body %}
         {{ form_start(form) }}
@@ -13,6 +14,7 @@
             {{ form_errors(form.name) }}
         </div>
         <div class="form-group">
+
             {{ form_label(form.ingredientQuantity) }}
             {{ form_widget(form.ingredientQuantity, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.ingredientQuantity) }}
@@ -24,6 +26,7 @@
         </div>
         <button type="submit">Ajouter</button>
         <a href="{{ path('recipe_add') }}" class="btn btn-secondary">Annuler</a>
+
         {{ form_end(form) }}
     {% endblock %}
 {% endblock %}

@@ -27,14 +27,10 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $recipe->setNbPersons(6);
 
 
-        $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT_REFERENCE));
 
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-
         $recipe->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
 
         $recipe->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT_REFERENCE));
@@ -60,17 +56,10 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $recipe2->setNbPersons(4);
 
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT_REFERENCE));
-
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-
         $recipe2->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
-
-
-
 
         $recipe2->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT_REFERENCE));
         $recipe2->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT2_REFERENCE));
@@ -95,13 +84,9 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $recipe3->setNbPersons(4);
 
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT2_REFERENCE));
-
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT3_REFERENCE));
-
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT4_REFERENCE));
-
         $recipe3->addIngredient($this->getReference(IngredientFixtures::INGREDIENT5_REFERENCE));
-
 
         $recipe3->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT_REFERENCE));
         $recipe3->addEquipement($this->getReference(EquipementFixtures::EQUIPEMENT2_REFERENCE));

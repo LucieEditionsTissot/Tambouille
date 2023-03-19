@@ -48,6 +48,7 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
+
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Equipement::class)]
     private Collection $equipements;
 
@@ -56,6 +57,7 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
     private Collection $ingredients;
+
 
     public function __construct()
     {
@@ -226,7 +228,6 @@ class Recipe
 
         return $this;
     }
-    
     /**
      * @return Collection<int, Equipement>
      */
@@ -304,5 +305,6 @@ class Recipe
 
         return $this;
     }
+
 
 }

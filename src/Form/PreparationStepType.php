@@ -14,6 +14,7 @@ class PreparationStepType extends AbstractType
     {
         $builder
             ->add('description', TextareaType::class, [
+
                 'label' => 'Step',
                 'attr' => [
                     'class' => 'form-control'
