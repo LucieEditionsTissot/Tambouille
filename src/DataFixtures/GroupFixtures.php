@@ -9,7 +9,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class GroupFixtures extends Fixture
+class GroupFixtures extends Fixture implements DependentFixtureInterface
 {
     public const GROUP_REFERENCE = 'group1';
 
@@ -34,6 +34,11 @@ class GroupFixtures extends Fixture
         $manager->persist($group1);
         $manager->flush();
     }
-
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
 
 }

@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\PreparationStep;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class PreparationStepFixtures extends Fixture
@@ -18,22 +19,18 @@ class PreparationStepFixtures extends Fixture
         $preparationStep1 = new PreparationStep();
         $preparationStep1->setDescription('Préchauffer le four à 210 °');
         $preparationStep1->setOrdre(1);
-        $preparationStep1->setRecipe($this->getReference(RecipeFixtures::RECIPE_REFERENCE));
 
         $preparationStep2 = new PreparationStep();
         $preparationStep2->setDescription('Couper les carottes et les oignons en fines tranches');
         $preparationStep2->setOrdre(2);
-        $preparationStep2->setRecipe($this->getReference(RecipeFixtures::RECIPE_REFERENCE));
 
         $preparationStep3 = new PreparationStep();
         $preparationStep3->setDescription('Ajouter du fenouil selon votre convenance');
         $preparationStep3->setOrdre(3);
-        $preparationStep3->setRecipe($this->getReference(RecipeFixtures::RECIPE_REFERENCE));
 
         $preparationStep4 = new PreparationStep();
         $preparationStep4->setDescription('Faites cuire pendant 1h-1h10');
         $preparationStep4->setOrdre(4);
-        $preparationStep4->setRecipe($this->getReference(RecipeFixtures::RECIPE_REFERENCE));
 
         $manager->persist($preparationStep1);
         $manager->persist($preparationStep2);
@@ -48,8 +45,6 @@ class PreparationStepFixtures extends Fixture
 
         $manager->flush();
     }
-    public function getOrder(): int
-    {
-        return 4;
-    }
+
+
 }
