@@ -19,18 +19,24 @@ class IngredientFixtures extends Fixture
     {
         $ingredient1 = new Ingredient();
         $ingredient1->setName('Pommes de terre');
-
+        $ingredient1->setIngredientQuantity(600);
+        $ingredient1->setIngredientVolume("g");
         $ingredient2 = new Ingredient();
         $ingredient2->setName('Oignons');
-
+        $ingredient2->setIngredientQuantity(400);
+        $ingredient2->setIngredientVolume("g");
         $ingredient3 = new Ingredient();
         $ingredient3->setName('Carottes');
-
+        $ingredient3->setIngredientQuantity(1);
+        $ingredient3->setIngredientVolume("kg");
         $ingredient4 = new Ingredient();
         $ingredient4->setName('Poulet');
-
+        $ingredient4->setIngredientQuantity(2);
+        $ingredient4->setIngredientVolume("kg");
         $ingredient5 = new Ingredient();
         $ingredient5->setName('Fenouil');
+        $ingredient5->setIngredientQuantity(500);
+        $ingredient5->setIngredientVolume("g");
 
         $manager->persist($ingredient1);
         $manager->persist($ingredient2);

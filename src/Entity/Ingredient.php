@@ -17,12 +17,19 @@ class Ingredient
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+    #[ORM\Column]
+    private ?int $ingredientQuantity = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    private ?Recipe $recipe = null;
+    #[ORM\Column(length: 255)]
+    private ?string $ingredientVolume = null;
+
+    #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'ingredients')]
+    private Collection $recipes;
+
 
     public function __construct()
     {
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,19 +49,59 @@ class Ingredient
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
+    public function getIngredientQuantity(): ?int
     {
-        return $this->recipe;
+        return $this->ingredientQuantity;
     }
 
-    public function setRecipe(?Recipe $recipe): self
+    public function setIngredientQuantity(int $ingredientQuantity): self
     {
-        $this->recipe = $recipe;
+        $this->ingredientQuantity = $ingredientQuantity;
 
         return $this;
     }
 
+
+    public function getIngredientVolume(): ?string
+    {
+        return $this->ingredientVolume;
+    }
+
+    public function setIngredientVolume(string $ingredientVolume): self
+    {
+        $this->ingredientVolume = $ingredientVolume;
+
+        return $this;
+    }
     public function __toString() {
         return $this->name;
     }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->addIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeIngredient($this);
+        }
+
+        return $this;
+    }
+
 }
