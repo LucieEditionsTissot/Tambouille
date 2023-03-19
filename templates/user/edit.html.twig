@@ -1,20 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'components/layout.html.twig' %}
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block customStylesheets %}
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 {% endblock %}
 
-{% block title %}Modifier le profil{% endblock %}
+{% block contentHeader %}
+    <h1 class="pl-3" style="font-weight: bold">
+        Modifier le profil
+    </h1>
+{% endblock %}
 
-{% block body %}
+{% block contentBody %}
     <div class="p-4">
-        <div style="border-bottom: #E5DDCD 2px solid" class="mb-3">
-            <h1 class="pl-3" style="font-weight: bold">
-                Modifier le profil
-            </h1>
-        </div>
-
         {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.email) }}
