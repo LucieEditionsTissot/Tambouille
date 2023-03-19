@@ -16,14 +16,14 @@ class PostFixtures extends Fixture
         $post1 = new Post();
         $post1->setContent('This is my very first blog post');
         $post1->setAuthor($this->getReference(UserFixtures::USER_REFERENCE));
-        $post1->setGroupId($this->getReference(GroupFixtures::GROUP_REFERENCE));
+        $post1->setGroupId($groupId);
         $post1->setCreatedAt(new \DateTimeImmutable());
 
         $manager->persist($post1);
 
         $post2 = new Post();
         $post2->setContent('This is my second blog post');
-        $post2->setAuthor($groupId);
+        $post2->setAuthor($this->getReference(UserFixtures::USER_REFERENCE));
         $post2->setCreatedAt(new \DateTimeImmutable());
         $post2->setGroupId($groupId);
         $manager->persist($post2);
