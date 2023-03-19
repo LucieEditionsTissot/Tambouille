@@ -1,0 +1,14 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block contentBody %}
+    <h1>Edit Recipe</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.ingredients) }}
+    {{ form_row(form.instructions) }}
+    {{ form_row(form.image) }}
+    <button type="submit" class="btn btn-primary">Save changes</button>
+    {{ form_end(form) }}
+{% endblock %}

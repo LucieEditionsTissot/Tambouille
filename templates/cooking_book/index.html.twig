@@ -1,0 +1,40 @@
+{% extends 'components/layout.html.twig' %}
+
+
+
+    {% block contentHeader %}
+        Livre de recette
+
+    {% endblock %}
+
+    {% block contentBody %}
+
+        <div>
+
+            <div>nb recette : {{ recipes|length }}</div>
+            <a href="{{ path('recipe_add') }}">Ajouter une recette</a>
+            <h1>Liste des recettes</h1>
+            <form method="get" action="{{ path('app_cooking_book') }}">
+                <div class="form-group">
+                    <label for="search">Rechercher une recette:</label>
+                    <input type="text" class="form-control" name="search" id="search" value="{{ app.request.query.get('search') }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </form>
+
+            <ul>
+                {% for recipe in recipes %}
+
+                    <li>
+                        <h2>{{ recipe.title }}</h2>
+                        <p>{{ recipe.description }}</p>
+                        <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="btn btn-primary">Consulter la
+                            recette</a>
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+    {% endblock %}
+
