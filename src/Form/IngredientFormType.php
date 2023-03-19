@@ -28,7 +28,7 @@ class IngredientFormType extends AbstractType
 
                 'label' => 'Quantity',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-input-style'
                 ]
             ])
 
@@ -36,7 +36,7 @@ class IngredientFormType extends AbstractType
 
                 'label' => 'Volume',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-input-style'
                 ],
                 'choices' => [
                     'ml' => 'ml',

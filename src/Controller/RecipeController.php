@@ -49,14 +49,18 @@ class RecipeController extends AbstractController
         if ($user instanceof User) {
             $recipe->setAuthor($user);
         }
+
         $form = $this->createForm(RecipeFormType::class, $recipe);
-        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
-        $ingredients = $ingredientRepository->findAll();
-        $equipementRepository = $entityManager->getRepository(Equipement::class);
-        $equipements = $equipementRepository->findAll();
-        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
-        $preparationSteps = $preparationStepRepository->findAll();
+        $ingredients = $recipe->getIngredients();
+        $equipements = $recipe->getEquipements();
+        $preparationSteps = $recipe->getPreparationStep();
         $form->handleRequest($request);
+
+        $newStep = $request->query->get('step');
+        if ($newStep) {
+            $step = $entityManager->getRepository(PreparationStep::class)->find($newStep);
+            $preparationSteps->add($step);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -94,6 +98,7 @@ class RecipeController extends AbstractController
             'ingredients' => $ingredients,
             'equipements' => $equipements,
             'preparationSteps' => $preparationSteps,
+            'recipe' => $recipe
 
         ]);
     }
@@ -112,13 +117,9 @@ class RecipeController extends AbstractController
     public function editRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, int $id): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
-        $ingredients = $ingredientRepository->findAll();
-        $equipementRepository = $entityManager->getRepository(Equipement::class);
-        $equipements = $equipementRepository->findAll();
-        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
-        $preparationSteps = $preparationStepRepository->findAll();
-
+        $ingredients = $recipe->getIngredients();
+        $equipements = $recipe->getEquipements();
+        $preparationSteps = $recipe->getPreparationStep();
 
         if (!$recipe) {
             throw $this->createNotFoundException('Recipe not found');
@@ -157,6 +158,7 @@ class RecipeController extends AbstractController
             'ingredients' => $ingredients,
             'equipements' => $equipements,
             'preparationSteps' => $preparationSteps,
+            'recipe' => $recipe
         ]);
     }
 

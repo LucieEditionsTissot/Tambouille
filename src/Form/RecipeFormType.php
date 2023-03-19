@@ -60,30 +60,7 @@ class RecipeFormType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('author')
-            ->add('nbPersons', IntegerType::class)
-
-            ->add('equipements', CollectionType::class, [
-                'entry_type' => EquipementFormType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'prototype_name' => '__ingredient_name__',
-            ])
-            ->add('ingredients', CollectionType::class, [
-                'entry_type' => IngredientFormType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'prototype_name' => '__ingredient_name__',
-            ])
-
-            ->add('preparationStep', CollectionType::class, [
-                'entry_type' => PreparationStepType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'prototype_name' => '__ingredient_name__',
-            ]);
+            ->add('nbPersons', IntegerType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
