@@ -1,9 +1,11 @@
 
 {% extends 'components/layout.html.twig' %}
 
+
     {% block customStylesheets %}
         <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     {% endblock %}
+
 
     {% block contentHeader %}
         <h1 class="pl-3" style="font-weight: bold">Profil de {{ user.username }}</h1>
@@ -37,6 +39,7 @@
                 <p class="form-input-style p-2" style="border-radius: 10px">{{ user.phone }}</p>
             </div>
 
+
             <a href="{{ path('app_user_edit') }}" class="btn"  style="background-color: #E6A203; border-radius: 10px; width: fit-content;color: white">Modifier le profil</a>
         </div>
 
@@ -45,6 +48,7 @@
             {% for recipe in user.getRecipes %}
                 <div class="d-flex align-items-center">
                     <img style="height: 65px; width: 65px" src="{{ asset('uploads/images/' ~ recipe.images) }}" alt=" ">
+
                     <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="ml-3">
                         {{ recipe.title }}
                     </a>

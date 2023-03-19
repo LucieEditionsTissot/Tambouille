@@ -44,35 +44,43 @@
             {{ form_errors(form.author) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.ingredients) }}
-            {% for ingredientForm in form.ingredients %}
-                <div class="ingredient-form">
-                    {{ form_widget(form.ingredients, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
-                </div>
-            {% endfor %}
+
+            <h3>Ingredients</h3>
+            <div id="ingredients">
+                {% for ingredient in ingredients %}
+                        {{ ingredient.name }} -  {{ ingredient.ingredientQuantity }} - {{ ingredient.ingredientVolume }}<br>
+                    <a href="{{ path('delete_ingredient', {'id': ingredient.id}) }}">Supprimer</a>
+                {% endfor %}
+            </div>
+            <a href="{{ path('add_ingredient') }}">Ajouter un ingrédient</a>
         </div>
 
         <div class="form-group">
-            {{ form_label(form.equipements) }}
-            {% for equipementForm in form.equipements %}
-                <div class="equipement-form">
-                    {{ form_widget(form.equipements, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+            <h3>Equipements</h3>
+            {% for equipement in equipements %}
+                <div class="equipement">
+                    {{ equipement.name }}
                 </div>
+                <a href="{{ path('delete_equipement', {'id': equipement.id}) }}">Supprimer</a>
             {% endfor %}
+            <a href="{{ path('add_equipement') }}">Ajouter un équipement</a>
         </div>
 
         <div class="form-group">
-            {{ form_label(form.preparationStep) }}
-            {% for stepForm in form.preparationStep %}
-                <div class="step-form">
-                    {{ form_widget(form.preparationStep, {'attr': {'class': 'form-control'}, 'allow_add': true, 'allow_delete': true}) }}
+            <h3>Etape de préparation</h3>
+            {% for preparationStep in preparationSteps %}
+                <div class="preparationStep">
+                    {{ preparationStep.description }}
                 </div>
+                <a href="{{ path('delete_preparationStep', {'id': preparationStep.id}) }}">Supprimer</a>
             {% endfor %}
+            <a href="{{ path('add_preparationStep') }}">Ajouter une étape de préparation</a>
+
         </div>
-
-
+<br>
+        <button type="submit" class="btn btn-primary">Ajouter la recette</button>
         {{ form_end(form) }}
-    <button type="submit" class="btn btn-primary">Ajouter la recette</button>
+
     {% endblock %}
 
 {% endblock %}

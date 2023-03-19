@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipement;
 use App\Entity\Group;
 use App\Entity\Image;
 use App\Entity\Ingredient;
 use App\Entity\IngredientQuantity;
 use App\Entity\Post;
+use App\Entity\PreparationStep;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\IngredientFormType;
@@ -43,10 +45,17 @@ class RecipeController extends AbstractController
         $group = $this->getGroupById($entityManager, $groupId);
         $recipe->setGroupId($group);
         $user = $this->getUser();
+
         if ($user instanceof User) {
             $recipe->setAuthor($user);
         }
         $form = $this->createForm(RecipeFormType::class, $recipe);
+        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
+        $ingredients = $ingredientRepository->findAll();
+        $equipementRepository = $entityManager->getRepository(Equipement::class);
+        $equipements = $equipementRepository->findAll();
+        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
+        $preparationSteps = $preparationStepRepository->findAll();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,6 +91,10 @@ class RecipeController extends AbstractController
         }
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
+            'ingredients' => $ingredients,
+            'equipements' => $equipements,
+            'preparationSteps' => $preparationSteps,
+
         ]);
     }
 
@@ -99,6 +112,13 @@ class RecipeController extends AbstractController
     public function editRecipe(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, int $id): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        $ingredientRepository = $entityManager->getRepository(Ingredient::class);
+        $ingredients = $ingredientRepository->findAll();
+        $equipementRepository = $entityManager->getRepository(Equipement::class);
+        $equipements = $equipementRepository->findAll();
+        $preparationStepRepository = $entityManager->getRepository(PreparationStep::class);
+        $preparationSteps = $preparationStepRepository->findAll();
+
 
         if (!$recipe) {
             throw $this->createNotFoundException('Recipe not found');
@@ -134,6 +154,9 @@ class RecipeController extends AbstractController
 
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
+            'ingredients' => $ingredients,
+            'equipements' => $equipements,
+            'preparationSteps' => $preparationSteps,
         ]);
     }
 
@@ -148,6 +171,7 @@ class RecipeController extends AbstractController
             'reviews' => $reviews,
             'posts' => $posts,
             'quantity' => $ingredients
+
         ]);
     }
 
@@ -164,6 +188,7 @@ class RecipeController extends AbstractController
         );
         return $quantity;
     }
+
 
     #[Route('/{id}/delete', name: 'delete')]
     public function deleteRecipe(Request $request, EntityManagerInterface $entityManager, int $id): Response
