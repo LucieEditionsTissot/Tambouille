@@ -43,7 +43,7 @@ class RecipeFormType extends AbstractType
                 'label' => 'Description',
             ])
             ->add('cookingTime', IntegerType::class)
-            ->add('image', FileType::class, [
+            ->add('images', FileType::class, [
                 'label' => 'Image',
 
                 'mapped' => false,

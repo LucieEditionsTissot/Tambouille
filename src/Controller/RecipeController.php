@@ -51,27 +51,18 @@ class RecipeController extends AbstractController
         }
 
         $form = $this->createForm(RecipeFormType::class, $recipe);
-        $ingredients = $recipe->getIngredients();
-        $equipements = $recipe->getEquipements();
-        $preparationSteps = $recipe->getPreparationStep();
-        $form->handleRequest($request);
 
-        $newStep = $request->query->get('step');
-        if ($newStep) {
-            $step = $entityManager->getRepository(PreparationStep::class)->find($newStep);
-            $preparationSteps->add($step);
-        }
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->getRepository(Recipe::class);
-            $imageFile = $form->get('image')->getData();
+            $imageFile = $form->get('images')->getData();
 
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
                 try {
                     $imageFile->move(
                         $this->getParameter('images_directory'),
@@ -80,8 +71,8 @@ class RecipeController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $images = [$newFilename];
-                $recipe->setImages($images);
+
+                $recipe->setImages($newFilename);
             }
 
 
@@ -91,13 +82,10 @@ class RecipeController extends AbstractController
             $entityManager->persist($newPost);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cooking_book');
+            return $this->redirectToRoute('recipe_edit', ['id' => $recipe->getId()]);
         }
         return $this->render('recipe/recipeForm.html.twig', [
             'form' => $form->createView(),
-            'ingredients' => $ingredients,
-            'equipements' => $equipements,
-            'preparationSteps' => $preparationSteps,
             'recipe' => $recipe
 
         ]);
@@ -124,7 +112,20 @@ class RecipeController extends AbstractController
         if (!$recipe) {
             throw $this->createNotFoundException('Recipe not found');
         }
+        $newStep = $request->query->get('description');
 
+        $newIngredientName = $request->query->get('name');
+        $newIngredientQuantity = $request->query->get('ingredientQuantity');
+        $newIngredientVolume = $request->query->get('ingredientVolume');
+
+        if($newIngredientName && $newIngredientQuantity && $newIngredientVolume) {
+            $ingredient = $entityManager->getRepository(Ingredient::class)->find($newIngredientName, $newIngredientQuantity, $newIngredientVolume);
+            $ingredients->add($ingredient);
+        }
+        if ($newStep) {
+            $step = $entityManager->getRepository(PreparationStep::class)->find($newStep);
+            $preparationSteps->add($step);
+        }
         $form = $this->createForm(RecipeFormType::class, $recipe);
         $form->handleRequest($request);
 
@@ -144,8 +145,7 @@ class RecipeController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $images = [$newFilename]; // Wrap the newFilename in an array
-                $recipe->setImages($images);
+                $recipe->setImages($newFilename);
             }
 
             $entityManager->flush();
@@ -153,7 +153,7 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('app_cooking_book');
         }
 
-        return $this->render('recipe/recipeForm.html.twig', [
+        return $this->render('recipe/edit.html.twig', [
             'form' => $form->createView(),
             'ingredients' => $ingredients,
             'equipements' => $equipements,
@@ -229,5 +229,3 @@ class RecipeController extends AbstractController
         ]);
     }
 }
-
-
