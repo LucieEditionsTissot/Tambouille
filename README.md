@@ -1,6 +1,6 @@
 # Tambouille
 
-Tambouille est un projet d'école réalisé en Symfony 6 dans le but de créer un réseau social familial et amical autour de la cuisine et des recettes de cuisine à partager avec ses proches.
+Tambouille est un projet d'école réalisé en Symfony 5 dans le but de créer un réseau social familial et amical autour de la cuisine et des recettes de cuisine à partager avec ses proches.
 
 ![Cover](https://github.com/LucieEditionsTissot/Tambouille/blob/main/public/assets/logo_tambouille.png)
 ![Cover](https://github.com/LucieEditionsTissot/Tambouille/blob/main/public/assets/tambouille.png)
