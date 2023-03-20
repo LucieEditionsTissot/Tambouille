@@ -1,6 +1,6 @@
 /.idea
 students_gobelins.key
-/.idea
+.idea
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -13,7 +13,6 @@ students_gobelins.key
 
 ###> phpunit/phpunit ###
 /phpunit.xmlgit
-.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###
