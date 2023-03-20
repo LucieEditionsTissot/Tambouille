@@ -25,7 +25,7 @@ class PreparationStepController extends AbstractController
         if ($recipe) {
             $recipeObj = $entityManager->getRepository(Recipe::class)->find($recipe);
             $last = $recipeObj->getPreparationStep();
-            $preparationStep->setOrdre($last->last()->getOrdre());
+            $preparationStep->setOrdre($last->count());
         } else {
             $preparationStep->setOrdre(1);
         }

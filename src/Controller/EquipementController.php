@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Equipement;
 use App\Entity\Ingredient;
+use App\Entity\Recipe;
 use App\Form\EquipementFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,8 +25,8 @@ class EquipementController extends AbstractController
             $entityManager->persist($equipement);
             $entityManager->flush();
 
-
-            return $this->redirectToRoute('recipe_add');
+            $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+            return $this->redirectToRoute('recipe_edit', ['id' => $recipe->getId()]);
         }
 
         return $this->render('equipement/add.html.twig', [
