@@ -118,6 +118,7 @@ class RecipeController extends AbstractController
         $newIngredientQuantity = $request->query->get('ingredientQuantity');
         $newIngredientVolume = $request->query->get('ingredientVolume');
 
+        $newEquipement = $request->query->get('name');
         if($newIngredientName && $newIngredientQuantity && $newIngredientVolume) {
             $ingredient = $entityManager->getRepository(Ingredient::class)->find($newIngredientName, $newIngredientQuantity, $newIngredientVolume);
             $ingredients->add($ingredient);
@@ -126,11 +127,15 @@ class RecipeController extends AbstractController
             $step = $entityManager->getRepository(PreparationStep::class)->find($newStep);
             $preparationSteps->add($step);
         }
+        if ($newEquipement) {
+            $equipement = $entityManager->getRepository(Equipement::class)->find($newEquipement);
+            $preparationSteps->add($equipement);
+        }
         $form = $this->createForm(RecipeFormType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
+            $imageFile = $form->get('images')->getData();
 
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);

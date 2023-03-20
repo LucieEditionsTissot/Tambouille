@@ -25,11 +25,14 @@ class IngredientController extends AbstractController
         $form->handleRequest($request);
 
         $recipe = $request->query->get('recipes');
+        $recipeObj = $entityManager->getRepository(Recipe::class)->find($recipe);
+        $recipeId =$recipeObj->getIngredients();
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->getRepository(Ingredient::class);
+            $recipeObj->addIngredient($ingredient);
+            $ingredient->addRecipe($recipeObj);
             $entityManager->persist($ingredient);
-            $recipeObj = $entityManager->getRepository(Recipe::class)->find($recipe);
-            $recipeId =$recipeObj->getIngredients();
+            $entityManager->persist($recipeObj);
             $entityManager->flush();
             return $this->redirectToRoute('recipe_edit', ['id' => $recipeObj->getId()]);
 

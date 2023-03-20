@@ -52,19 +52,23 @@
     <div class="form-group">
 
         <h3>Ingredients</h3>
-        <div id="ingredients">
+        <div id="ingredient">
             {% for ingredient in ingredients %}
                 <div style="border: #E6A203 1px solid; border-radius: 10px; width: fit-content" class="d-flex p-2 mb-3">
+                    <div class="ingredient">
                     {{ ingredient.name }} -  {{ ingredient.ingredientQuantity }} - {{ ingredient.ingredientVolume }}
-                    <a href="{{ path('delete_ingredient', {'id': ingredient.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
+                    </div>
+                        <a href="{{ path('delete_ingredient', {'id': ingredient.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
+
                 </div>
             {% endfor %}
         </div>
-        <a href="{{ path('add_ingredient', {'recipe': recipe.id}) }} }}" class="btn form-submit mt-3">Ajouter un ingrédient</a>
+        <a href="{{ path('add_ingredient', {'recipes': recipe.id}) }}" class="btn form-submit mt-3">Ajouter un ingrédient</a>
     </div>
 
     <div class="form-group">
         <h3>Equipements</h3>
+    <div id="equipement">
         {% for equipement in equipements %}
             <div style="border: #E6A203 1px solid; border-radius: 10px; width: fit-content" class="d-flex p-2 mb-3">
                 <div class="equipement">
@@ -73,7 +77,8 @@
                 <a href="{{ path('delete_equipement', {'id': equipement.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
             </div>
         {% endfor %}
-        <a href="{{ path('add_equipement') }}" class="btn form-submit">Ajouter un équipement</a>
+    </div>
+        <a href="{{ path('add_equipement', {'recipe': recipe.id}) }}" class="btn form-submit">Ajouter un équipement</a>
     </div>
 
     <div class="form-group">

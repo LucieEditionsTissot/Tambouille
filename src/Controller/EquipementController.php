@@ -19,14 +19,18 @@ class EquipementController extends AbstractController
     {
         $equipement = new Equipement();
         $form = $this->createForm(EquipementFormType::class, $equipement);
-
+        $recipe = $request->query->get('recipe');
+        $recipeObj = $entityManager->getRepository(Recipe::class)->find($recipe);
+        $recipeId =$recipeObj->getEquipements();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipeObj->addEquipement($equipement);
+            $equipement->addRecipe($recipeObj);
+            $entityManager->persist($recipeObj);
             $entityManager->persist($equipement);
             $entityManager->flush();
 
-            $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-            return $this->redirectToRoute('recipe_edit', ['id' => $recipe->getId()]);
+            return $this->redirectToRoute('recipe_edit', ['id' => $recipeObj->getId()]);
         }
 
         return $this->render('equipement/add.html.twig', [
