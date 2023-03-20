@@ -18,7 +18,7 @@ class EquipementFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-input-style'
                 ]
 
             ]);

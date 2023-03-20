@@ -3,8 +3,6 @@
 namespace App\Form;
 use App\Entity\Ingredient;
 
-use App\Entity\Recipe;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -28,7 +26,7 @@ class IngredientFormType extends AbstractType
 
                 'label' => 'Quantity',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-input-style'
                 ]
             ])
 
@@ -36,7 +34,7 @@ class IngredientFormType extends AbstractType
 
                 'label' => 'Volume',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control form-input-style'
                 ],
                 'choices' => [
                     'ml' => 'ml',
