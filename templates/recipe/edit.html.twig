@@ -60,7 +60,7 @@
                 </div>
             {% endfor %}
         </div>
-        <a href="{{ path('add_ingredient') }}" class="btn form-submit mt-3">Ajouter un ingrédient</a>
+        <a href="{{ path('add_ingredient', {'recipe': recipe.id}) }} }}" class="btn form-submit mt-3">Ajouter un ingrédient</a>
     </div>
 
     <div class="form-group">
