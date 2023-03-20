@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="{{ asset('css/post.css') }}">
+
+<div class="post-container d-flex flex-column">
+
+    <div class="title-container">
+        <div class="title-second-container">
+            <div class="title-third-container">
+                <span class="post-author">{{ post.author.username }}</span>
+                <div class="a-cuisine">
+                    a cuisiné
+                    <span class="post-recipe-title">{{ post.recipe.title ?? "Aucun recette" }}</span>
+                </div>
+            </div>
+
+            <div class="post-content">
+                {{ post.content }}
+            </div>
+
+            <div class="post-date">
+                {{ post.createdAt|date("m/d/Y") }}
+            </div>
+        </div>
+
+        <div class="title-image-container">
+            <img src="{{ asset('uploads/images/' ~ post.image) }}" alt=" ">
+        </div>
+    </div>
+    {% if noComment is same as false %}
+
+        <div class="input-container">
+            <form action="{{ path('add_comment') }}" method="post">
+                <input type="hidden" id="postId" name="postId" value="{{ post.id }}">
+                <textarea id="content" name="content"  placeholder="Ajouter un commentaire" ></textarea>
+                <button type="submit" class="nobutton">
+                    <i class="fas fa-comment-dots"></i>
+                </button>
+            </form>
+        </div>
+
+        {% for comment in post.comments %}
+            {{ component('comment', {
+                comment: comment,
+            }) }}
+        {% endfor %}
+    {% endif %}
+</div>

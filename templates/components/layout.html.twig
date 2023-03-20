@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+
+    {% block customStylesheets %}
+    {% endblock %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    Tambouille
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex">
+        <div class="w-25" style="background-color: rgba(229,221, 205,50%); min-height: 100vh">
+            <div style="position: sticky; top: 0;">
+                {{ component('sidebar', {
+                    user: app.user,
+                }) }}
+            </div>
+        </div>
+        <div class="w-75">
+            <div style="box-shadow: 0 3px 3px lightgray" class="p-3">
+
+                {% block contentHeader %}
+                {% endblock %}
+            </div>
+
+            <div style="background-color: rgba(229,221,205, 10%)" class="p-5">
+
+                {% block contentBody %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block title %}Hello LoginController!{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="w-100 vw-100 h-100 vh-100 d-flex justify-content-between">
+        <div class="flex-grow-1">
+            <img class="position-absolute" style="z-index: -1" src="{{ asset('assets/background-log.png') }}">
+        </div>
+        <div class="w-50 p-5 d-flex justify-content-center flex-column" style="background-color: white">
+            <div class="d-flex justify-content-center position-fixed" style="top: 2rem; right: 0.5rem; width: inherit">
+                <img style="width: 92.05px" src="{{ asset('assets/logo_tambouille.png') }}">
+            </div>
+            <h1 style="font-weight: 600">Se connecter</h1>
+            <p>Entrez les informations de connexion ci-dessous</p>
+            <form action="{{ path('app_login') }}" method="post" class="flex-column">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <label for="username" class="form-label">Email</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control form-input-style">
+
+                <label for="password" class="form-label mt-3">Password</label>
+                <input type="password" id="password" name="_password" class="form-control form-input-style">
+
+                {# If you want to control the URL the user is redirected to on success#}
+                {#        <input type="hidden" name="_target_path" value="{{ path }}"> #}
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="mt-5 btn" style="background-color: #E6A203; border-radius: 10px">
+                        Se connecter
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between mt-5">
+                    <p>Pas encore de compte ?</p>
+                    <a href="{{ path('app_register') }}" class="btn btn-outline" style="background-color: #E6A203; border-radius: 10px">
+                        S’inscrire
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

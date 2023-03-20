@@ -1,0 +1,40 @@
+.notif-container{
+    border: 1px solid var(--beige);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 30px;
+}
+.notif-container > img{
+    height: 100px;
+}
+.notif-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 30px 20px 0px;
+    gap: 10px;
+    flex: 1;
+}
+
+.notif-text-title{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 10px;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15px;
+    color: var(--light-gray);
+}
+
+.notif-text-title-user{
+    font-weight: 600;
+    font-size: 27px;
+    line-height: 30px;
+    color: var(--navy);
+}

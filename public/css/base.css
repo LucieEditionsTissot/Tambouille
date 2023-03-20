@@ -1,0 +1,14 @@
+:root{
+    --beige: #E5DDCD;
+    --navy: #444849;
+    --orange: #E6A203;
+    --light-gray: #8AA4A3;
+    --gray: #657777;
+    --carrot: #F96E43;
+    --green: #2FD868;
+}
+
+.nobutton{
+    background-color: transparent;
+    border: none;
+}

@@ -1,0 +1,26 @@
+{% extends 'components/layout.html.twig' %}
+
+    {% block customStylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/group.css') }}">
+    {% endblock %}
+
+
+    {% block contentHeader %}
+        <h1 class="pl-3" style="font-weight: bold">Publier un post</h1>
+    {% endblock %}
+
+    {% block contentBody %}
+
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        <div class="d-flex flex-column mb-3 mt-3">
+            {{ form_label(form.recipe) }}
+            {{ form_widget(form.recipe) }}
+        </div>
+        {{ form_row(form.image) }}
+
+        <button type="submit" class="btn form-submit mt-3">Publier</button>
+        {{ form_end(form) }}
+    {% endblock %}
+

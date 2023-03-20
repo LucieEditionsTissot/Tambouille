@@ -1,0 +1,105 @@
+{% extends 'components/layout.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block customStylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block contentHeader %}
+    <h1 class="pl-3" style="font-weight: bold">
+        {% if app.current_route == 'recip_add' %}
+            Ajouter une recette
+        {% else %}
+            Modifier la recette
+        {% endif %}
+    </h1>
+{% endblock %}
+
+{% block contentBody %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.cookingTime) }}
+        {{ form_widget(form.cookingTime, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.cookingTime) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control-file form-input-style'}}) }}
+        {{ form_errors(form.image) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.recipeType) }}
+        {{ form_widget(form.recipeType, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.recipeType) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.nbPersons) }}
+        {{ form_widget(form.nbPersons, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.nbPersons) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.author) }}
+        {{ form_widget(form.author, {'attr': {'class': 'form-control form-input-style'}}) }}
+        {{ form_errors(form.author) }}
+    </div>
+    <div class="form-group">
+
+        <h3>Ingredients</h3>
+        <div id="ingredients">
+            {% for ingredient in ingredients %}
+                <div style="border: #E6A203 1px solid; border-radius: 10px; width: fit-content" class="d-flex p-2 mb-3">
+                    {{ ingredient.name }} -  {{ ingredient.ingredientQuantity }} - {{ ingredient.ingredientVolume }}
+                    <a href="{{ path('delete_ingredient', {'id': ingredient.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ path('add_ingredient') }}" class="btn form-submit mt-3">Ajouter un ingrédient</a>
+    </div>
+
+    <div class="form-group">
+        <h3>Equipements</h3>
+        {% for equipement in equipements %}
+            <div style="border: #E6A203 1px solid; border-radius: 10px; width: fit-content" class="d-flex p-2 mb-3">
+                <div class="equipement">
+                    {{ equipement.name }}
+                </div>
+                <a href="{{ path('delete_equipement', {'id': equipement.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
+            </div>
+        {% endfor %}
+        <a href="{{ path('add_equipement') }}" class="btn form-submit">Ajouter un équipement</a>
+    </div>
+
+    <div class="form-group">
+        <h3>Etape de préparation</h3>
+        {% for preparationStep in preparationSteps %}
+            <div style="border: #E6A203 1px solid; border-radius: 10px; width: fit-content" class="d-flex p-2 mb-3">
+                <div class="preparationStep">
+                    {{ preparationStep.description }}
+                </div>
+                <a href="{{ path('delete_preparationStep', {'id': preparationStep.id}) }}" class="ml-3"><img src="{{ asset('assets/icons/trash.svg') }}"></a>
+            </div>
+        {% endfor %}
+        <a href="{{ path('add_preparationStep', {'recipe': recipe.id}) }}" class="btn form-submit">Ajouter une étape de préparation</a>
+    </div>
+    <br>
+    <button type="submit" class="btn form-submit">
+        {% if app.current_route == 'recip_add' %}
+            Ajouter la recette
+        {% else %}
+            Modifier la recette
+        {% endif %}
+    </button>
+    {{ form_end(form) }}
+
+{% endblock %}
