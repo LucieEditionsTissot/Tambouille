@@ -12,7 +12,7 @@ students_gobelins.key
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xmlgit
+/phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
