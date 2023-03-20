@@ -22,16 +22,20 @@ class FeedController extends AbstractController
     #[Route('/feed', name: 'app_feed')]
     public function index(Request $request,EntityManagerInterface $entityManager, #[CurrentUser] ?User $user): Response
     {
-        $session = $request->getSession();
+       // $session = $request->getSession();
         $group = null;
         $posts = null;
         if ($user->hasAtLeastOneGroup()) {
-            $groupId = $session->get(GROUP_ID);
-            if (!$groupId) { // pas forcement au bon endroit
-                $group = $this->selectFirstGroup($user, $session);
-            } else {
-                $group = $this->getGroupById($entityManager, $groupId);
-            }
+            //$groupId = $session->get(GROUP_ID);
+
+            //if (!$groupId) {
+                //$group = $this->selectFirstGroup($user, $session);
+                //} else {
+                //$group = $this->getGroupById($entityManager, $groupId);
+
+            //}
+            $groups= $user->getGroups();
+            $group = $groups[0];
 
             $posts = $this->findPosts($entityManager, $group);
         }
