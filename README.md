@@ -73,7 +73,12 @@ Nous vous souhaitons un agréable séjour auprès de **Tambouille** et espérons
 
 
 ## Et la prod ?
-#### **Work in progresss...**
+#### [https://www.tambouille.store](https://www.tambouille.store)
+Faites-nous confiance et allez dans paramètres avancées pour accéder au site malgré les avertissements (promis ça ira)
+
+Créez-vous un compte en cliquant sur le bouton s'incrire (On va pas tout faire pour vous quand même);
+
+Et rejoignez notre groupe **Coucou** avec le code : 1b1619
 
 # Made with :sparkling_heart: by
 ### Lucas Leperlier, Roxane Guella, Lucie Lesnier
